@@ -1,9 +1,11 @@
+import datetime
 import os
 import sys
-import datetime
 import dill
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
@@ -57,9 +59,9 @@ def classify_snv(kmer, include_flank_nuc=True):
     if include_flank_nuc:
         five_nuc = kmer[0]
         three_nuc = kmer[2]
-        return {'5-base': five_nuc, '3-base': three_nuc, 'snv': snv}
+        return {'5-base': five_nuc, '3-base': three_nuc, 'snv': '>'.join(snv)}
     else:
-        return {'snv': snv}
+        return {'snv': '>'.join(snv)}
 
 
 def convert_kmers(df):
@@ -70,9 +72,33 @@ def convert_kmers(df):
 
 
 def visualize(df):
-    # distribution of snv's
     snv_list = ['A>C', 'A>G', 'A>T', 'C>A', 'C>G', 'C>T']
-    plt.bar()
+    # distribution of snv's
+    snv_counts = df['snv'].value_counts().reindex(index=snv_list)
+    plt.bar(snv_list, snv_counts)
+    plt.savefig('out/snv_distr.pdf')
+
+    # distribution by haplotype
+    bl6j_df = df[df['haplotype'] == 0]
+    dba2j_df = df[df['haplotype'] == 1]
+
+    bl6j_snv_counts = bl6j_df['snv'].value_counts().reindex(index=snv_list)
+    dba2j_snv_counts = dba2j_df['snv'].value_counts().reindex(index=snv_list)
+
+    x = np.arange(len(snv_list))
+    width = 0.35
+
+    fig, ax = plt.subplots()
+    bl6j_bar = ax.bar(x - width/2, bl6j_snv_counts, width=width, label='C57BL/6J')
+    dba2j_bar = ax.bar(x + width / 2, dba2j_snv_counts, width=width, label='DBA/2J')
+
+    ax.set_ylabel('Counts')
+    ax.set_title('Mutation Spectrum Counts by Haplotype')
+    ax.set_xticklabels(snv_list)
+    ax.legend()
+
+    fig.tight_layout()
+    fig.savefig('out/snv_distr_by_haplo.pdf')
 
 
 def main():
@@ -80,10 +106,10 @@ def main():
 
     raw_singleton_summary = load_data(data_dir)
     filtered_singletons = filter_raw_data(raw_singleton_summary)
-    collapsed_complements = convert_kmers(filtered_singletons)
+    formatted_kmer_df = convert_kmers(filtered_singletons)
 
-
-    # collapsed_complements.to_csv('out/converted_kmers', sep='\t')
+    visualize(formatted_kmer_df)
+    formatted_kmer_df.to_csv('out/converted_kmers', sep='\t')
 
 
 if __name__ == '__main__':
