@@ -7,43 +7,39 @@ import numpy as np
 import pandas as pd
 
 import matplotlib
-matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 
-def load_data(data):
-    chr_singleton_dir = data
-
+def load_data(data_dir):
     chr_singletons = []
 
-    for f_name in os.listdir(chr_singleton_dir):
-        path = os.path.join(chr_singleton_dir, f_name)
-        chrom_mut_spec = pd.read_csv(path, header=0, index_col=None)
-        chr_singletons.append(chrom_mut_spec)
+    for f_name in os.listdir(data_dir):
+        path = os.path.join(data_dir, f_name)
+        chr_mut_spec = pd.read_csv(path, header=0, index_col=None)
+        chr_singletons.append(chr_mut_spec)
 
     raw_mut_spec = pd.concat(chr_singletons, axis=0)
     return raw_mut_spec
 
 
 def filter_raw_data(raw_summary, remove_hetero=True):
-    # df = pd.DataFrame(raw_summary.loc[:, ['chrom', 'bxd_strain', 'k']])
-    df = raw_summary.copy(deep=True)
+    df = pd.DataFrame(raw_summary.loc[:, ['chrom', 'bxd_strain', 'haplotype', 'kmer', 'gt']])
+    # df = raw_summary.copy(deep=True)
 
     # remove indel mutations
-    # df = df.loc(~df['kmer'].str.contains('indel'))
-    df = df[~df['kmer'].str.contains('del')]
+    df = df[~df['kmer'].str.contains('indel')]
+
     # remove heterozygous mutations
     if remove_hetero:
         df = df[df['gt'] == 2]
 
-    df = df.drop(['start', 'end', 'gt', 'dp', 'ab', 'phastCons'], axis=1)
+    df = df.drop(['gt'], axis=1)
 
     return df
 
 
 def get_complement(seq):
     base_map = str.maketrans('ATGC>', 'TACG>')
-
     return seq.translate(base_map)
 
 
@@ -73,6 +69,7 @@ def convert_kmers(df):
 
 def visualize(df):
     snv_list = ['A>C', 'A>G', 'A>T', 'C>A', 'C>G', 'C>T']
+
     # distribution of snv's
     snv_counts = df['snv'].value_counts().reindex(index=snv_list)
     plt.bar(snv_list, snv_counts)
@@ -98,20 +95,6 @@ def visualize(df):
     ax.legend()
 
     fig.tight_layout()
-    fig.savefig('out/snv_distr_by_haplo.pdf')
+    # fig.savefig('out/snv_distr_by_haplo_new.pdf')
 
-
-def main():
-    data_dir = 'data/per_chr_singleton'
-
-    raw_singleton_summary = load_data(data_dir)
-    filtered_singletons = filter_raw_data(raw_singleton_summary)
-    formatted_kmer_df = convert_kmers(filtered_singletons)
-
-    visualize(formatted_kmer_df)
-    formatted_kmer_df.to_csv('out/converted_kmers', sep='\t')
-
-
-if __name__ == '__main__':
-    os.chdir('..')
-    main()
+    plt.show()
