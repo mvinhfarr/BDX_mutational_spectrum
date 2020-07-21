@@ -19,4 +19,8 @@ formatted_singletons = distr_by_haplotype.convert_kmers(filtered_singletons)
 
 # distr_by_haplotype.visualize_strain_distrb(formatted_singletons)
 
-distr_by_haplotype.mutation_spectrum_heatmap(filtered_singletons)
+ratio_props = distr_by_haplotype.mutation_spectrum_heatmap(filtered_singletons)
+# ratio_props.to_csv(results_dir + 'ratio_props')
+
+# mutations_strains_df = distr_by_haplotype.mutations_by_strains_df(filtered_singletons)
+# mutations_strains_df.to_csv(results_dir+'mutations_strains')

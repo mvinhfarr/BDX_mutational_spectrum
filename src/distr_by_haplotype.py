@@ -120,15 +120,21 @@ def visualize_strain_distrb(df):
     plt.title('Number of Mutations per Strains')
 
     plt.tight_layout()
-    # plt.savefig('out/numSNV_per_strain')
+    plt.savefig('out/numSNV_per_strain.pdf')
 
-    plt.show()
+    fig2 = plt.figure(2)
+    plt.hist(strain_counts, bins=20)
+    plt.xlabel('# SNVs')
+    plt.ylabel('# of Strains')
+    plt.title('Distribution of # SNVs per Strain')
+    # plt.savefig('out/distrb_snv_strains.pdf')
+    # plt.show()
     print(strain_counts)
 
 
 def convert_into_proportion(df):
-    multi_index_names = [['C>A', 'C>G', 'C>T', 'A>G', 'A>C', 'A>T'], ['A', 'T', 'C', 'G']]
-    propsdf = pd.DataFrame(index=pd.MultiIndex.from_product(multi_index_names, names=('SNV', '5\'')), columns=['A', 'T', 'C', 'G'], dtype=float)
+    multi_index_names = [['C>A', 'C>G', 'C>T', 'A>G', 'A>C', 'A>T'], ['A', 'T', 'C', 'G'], ['A', 'T', 'C', 'G']]
+    propsdf = pd.DataFrame(index=pd.MultiIndex.from_product(multi_index_names, names=('SNV', '5\'', '3\'')), columns=['Frequency'], dtype=float)
 
     snv_counts = df['kmer'].value_counts()
     tot = snv_counts.sum()
@@ -136,7 +142,7 @@ def convert_into_proportion(df):
 
     for index, row in snv_props.iteritems():
         kmer = classify_kmer(index)
-        propsdf.loc[(kmer['snv'], kmer['5-base']), kmer['3-base']] = row
+        propsdf.loc[(kmer['snv'], kmer['5-base'], kmer['3-base']), 'Frequency'] = row
 
     return propsdf
 
@@ -150,15 +156,33 @@ def mutation_spectrum_heatmap(df):
 
     ratio_props = b_props/d_props
 
-    print(ratio_props)
-
     # tempdf = np.random.random((16,16))
 
-    ax = sb.heatmap(ratio_props, cmap='bwr', cbar=True, square=True)
+    ax = sb.heatmap(ratio_props.unstack(level=-1), cmap='bwr', cbar=True, square=True, vmax=1.16, vmin=0.84)
+    ax.hlines(range(4, 96, 4), *ax.get_xlim())
     plt.title('Ratio of proportions of SNVs between BL6: DBA')
+    plt.ylabel('3\'')
     plt.tight_layout()
 
-    plt.savefig('out/ratio_props_heatmap')
+    # plt.savefig('out/ratio_props_heatmap.pdf')
     plt.show()
+
+    return ratio_props
+
+
+def mutations_by_strains_df(filtered_df):
+    strain_counts = filtered_df['bxd_strain'].value_counts()
+    mut_strain = []
+
+    for index, row in strain_counts.iteritems():
+        strain_df = filtered_df[filtered_df['bxd_strain'] == index]
+        strain_props_df = convert_into_proportion(strain_df)
+        strain_props_df.rename(columns={'Frequency': index}, inplace=True)
+
+        mut_strain.append(strain_props_df)
+
+    mut_strain_df = pd.concat(mut_strain, axis=1)
+
+    return mut_strain_df
 
 
