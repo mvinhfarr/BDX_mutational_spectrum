@@ -3,11 +3,11 @@ import os
 import pandas as pd
 
 
-def load_data(data_dir):
+def load_data(snv_data):
     chr_singletons = []
 
-    for f_name in os.listdir(data_dir):
-        path = os.path.join(data_dir, f_name)
+    for f_name in os.listdir(snv_data):
+        path = os.path.join(snv_data, f_name)
         chr_mut_spec = pd.read_csv(path, header=0, index_col=None)
         chr_singletons.append(chr_mut_spec)
 

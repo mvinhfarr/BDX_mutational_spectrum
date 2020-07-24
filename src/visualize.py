@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sb
 
 params = {'legend.fontsize': 'x-small',
           'legend.framealpha': 0.5,
@@ -132,11 +133,9 @@ def mutation_spectrum_barcharts(mutation_strain_df, show=True, save=False, resul
     if show:
         plt.show()
 
-
     return mutation_fraction_df, snv_strain_avg_frac, haplo_snv_avg, snv_frac, per_ht_snv_fracs
 
 
-'''
 def visualize_strain_distrb(df):
     strain_counts = df['bxd_strain'].value_counts()
     fig = plt.figure(1)
@@ -159,20 +158,7 @@ def visualize_strain_distrb(df):
     print(strain_counts)
 
 
-'''
-
-'''
-def mutation_spectrum_heatmap(df):
-    b_df = df[df['haplotype'] == 0]
-    d_df = df[df['haplotype'] == 1]
-
-    b_props = convert_into_proportion(b_df)
-    d_props = convert_into_proportion(d_df)
-
-    ratio_props = b_props/d_props
-
-    # tempdf = np.random.random((16,16))
-
+def mutation_spectrum_heatmap(ratio_props):
     ax = sb.heatmap(ratio_props.unstack(level=-1), cmap='bwr', cbar=True, square=True, vmax=1.16, vmin=0.84)
     ax.hlines(range(4, 96, 4), *ax.get_xlim())
     plt.title('Ratio of proportions of SNVs between BL6: DBA')
@@ -183,4 +169,12 @@ def mutation_spectrum_heatmap(df):
     plt.show()
 
     return ratio_props
-'''
+
+
+def other_bar_charts(mutation_strain_df):
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+
+    temp = mutation_strain_df.sum(axis=1)
+    temp.unstack([1]).plot(kind='bar', ax=ax3, stacked=True)
+
+    # plt.show()

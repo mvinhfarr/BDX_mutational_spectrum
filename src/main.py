@@ -4,10 +4,12 @@ import matplotlib.pyplot as plt
 
 import preprocess
 import visualize
+import epochs
 
 os.chdir('..')
 
-data_dir = 'data/per_chr_singleton'
+snv_data = 'data/per_chr_singleton'
+meta_data = 'data/strain_summary.csv'
 
 results_df = 'out/dfs/'
 results_figs = 'out/figs/'
@@ -22,13 +24,8 @@ mutation_strain_df = pd.read_csv(results_df+'mutation_strains', index_col=[0, 1,
 # snv_df, bl_df, dba_df = visualize.mutation_spectrum_barchartsv1(mutations_strains,
 # show=True, save=False, results_dir=results_figs)
 
-snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
-    visualize.mutation_spectrum_barcharts(mutation_strain_df, show=False, save=False, results_dir=results_figs)
+# snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
+#    visualize.mutation_spectrum_barcharts(mutation_strain_df, show=False, save=False, results_dir=results_figs)
 
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
-
-temp = mutation_strain_df.sum(axis=1)
-temp.unstack([1]).plot(kind='bar', ax=ax3, stacked=True)
-
-plt.show()
+epochs.load_meta_data(meta_data, mutation_strain_df)
 
