@@ -41,7 +41,9 @@ def load_meta_data(meta_data_csv, snv_df):
 
     print(df.index)
 
-    good_strains = df.loc[names]
+    good_strains = names.intersection(df.index)
+    bad_strains_meta = df.drop(good_strains, axis=0)
+    bad_strains = names.drop(good_strains)
     print(good_strains)
-
+    print(bad_strains)
     # print(snv_df['bxd_strain'])
