@@ -9,19 +9,23 @@ import haplotypes
 
 os.chdir('..')
 
-snv_data = 'data/per_chr_singleton'
+# snv_data_dir = 'data/per_chr_singleton'
+snv_data_file = 'data/bxd_singletons_reformatted.csv'
 meta_data = 'data/strain_summary.csv'
 ht_data = 'data/hmm_haplotypes'
 
 results_df = 'out/dfs/'
 results_figs = 'out/figs/'
 
-# preprocess.main(data_dir, results_df)
+raw_summary, filtered_summary, muts_by_strains = preprocess.main(snv_data_file)
 
-raw_df = pd.read_csv(results_df+'raw_singleton_summary', index_col=0)
+# raw_summary.to_csv(results_df + 'raw_singletons')
+# filtered_summary.to_csv(results_df + 'filtered_singletons')
+# muts_by_strains.to_csv(results_df + 'mutations_by_strains')
+
+raw_df = pd.read_csv(results_df+'raw_singletons', index_col=0)
 filtered_df = pd.read_csv(results_df+'filtered_singletons', index_col=0)
-formatted_df = pd.read_csv(results_df+'formatted_singletons', index_col=0)
-mutation_strain_df = pd.read_csv(results_df+'mutation_strains', index_col=[0, 1, 2, 3])
+mut_strain_df = pd.read_csv(results_df+'mutations_by_strains', index_col=[0, 1, 2, 3])
 
 # snv_df, bl_df, dba_df = visualize.mutation_spectrum_barchartsv1(mutations_strains,
 # show=True, save=False, results_dir=results_figs)
@@ -31,4 +35,4 @@ mutation_strain_df = pd.read_csv(results_df+'mutation_strains', index_col=[0, 1,
 
 # epochs.load_meta_data(meta_data, mutation_strain_df)
 
-haplotypes.load_ht_data(ht_data)
+# haplotypes.load_ht_data(ht_data)

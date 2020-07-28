@@ -1,23 +1,25 @@
 import os
-
 import pandas as pd
 
 
-def load_data(snv_data):
-    chr_singletons = []
+def main(input_path):
+    if os.path.isfile(input_path):
+        raw_summary = load_formatted_csv(input_path)
 
-    for f_name in os.listdir(snv_data):
-        path = os.path.join(snv_data, f_name)
-        chr_mut_spec = pd.read_csv(path, header=0, index_col=None)
-        chr_singletons.append(chr_mut_spec)
+    filtered_summary = filter_raw_data(raw_summary)
+    mutation_strain_df = mutations_by_strains_df(filtered_summary)
 
-    raw_mut_spec = pd.concat(chr_singletons, axis=0)
-    return raw_mut_spec
+    return raw_summary, filtered_summary, mutation_strain_df
 
 
-def filter_raw_data(raw_summary, remove_hetero=True):
-    df = pd.DataFrame(raw_summary.loc[:, ['chrom', 'bxd_strain', 'haplotype', 'kmer', 'gt']])
+def load_formatted_csv(f_name):
+    df = pd.read_csv(f_name, sep='\t', header=0, index_col=None)
+    df.set_index('expanded_strain', inplace=True)
 
+    return df
+
+
+def filter_raw_data(df, remove_hetero=True):
     # remove indel mutations
     df = df[~df['kmer'].str.contains('indel')]
 
@@ -25,82 +27,38 @@ def filter_raw_data(raw_summary, remove_hetero=True):
     if remove_hetero:
         df = df[df['gt'] == 2]
 
-    df = df.drop(['gt'], axis=1)
-
     return df
 
 
-def get_complement(seq):
-    base_map = str.maketrans('ATGC', 'TACG')
-    return seq.translate(base_map)
-
-
-def classify_kmer(kmer, strip_snv=False):
-    snv = [kmer[1], kmer[-2]]
-
-    ''' Finds complement
-    if snv[0] == 'G' or snv[0] == 'T':
-        kmer = get_complement(kmer)
-        snv = [kmer[1], kmer[-2]]
-    '''
-
-    if not strip_snv:
-        five_nuc = kmer[0]
-        three_nuc = kmer[2]
-        return {'5-base': five_nuc, '3-base': three_nuc, 'snv': '>'.join(snv)}
-    else:
-        return {'snv': '>'.join(snv)}
-
-
-def format_kmers(df, strip_snv=False):
-    kmer_df = pd.DataFrame(df['kmer'].apply(lambda k: classify_kmer(k, strip_snv=strip_snv)).values.tolist(),
-                           index=df.index)
-    df = df.drop('kmer', axis=1)
-    converted = pd.concat([df, kmer_df], axis=1)
-    return converted
-
-
-def convert_into_fraction(df):
-    snv_counts = df['kmer'].value_counts()
-    tot = snv_counts.sum()
-    snv_fracs = snv_counts / tot
-
-    '''
-    for index, row in snv_props.iteritems():
-        kmer = classify_kmer(index)
-        props_df.loc[(kmer['snv'], kmer['5-base'], kmer['3-base']), 'Frequency'] = row
-    '''
-
-    return snv_fracs
-
-
 def mutations_by_strains_df(filtered_df):
-    strains = filtered_df['bxd_strain'].value_counts()
+    # list of strain names
+    strains = filtered_df.index.unique()
+    # list of mutation counts by strain as Series
     mut_strain = []
 
-    for index, row in strains.iteritems():
-        per_strain_df = filtered_df[filtered_df['bxd_strain'] == index]
-
+    for index in strains:
+        # create a sub df of mutations for each strain
+        per_strain_df = filtered_df.loc[index, :]
+        # divide per_strain_df into two new ones by haplotype
         bl_strain_df = per_strain_df[per_strain_df['haplotype'] == 0]
         dba_strain_df = per_strain_df[per_strain_df['haplotype'] == 1]
-
+        # find the counts for each mutation type by haplotype
         bl_snv_counts = bl_strain_df['kmer'].value_counts()
         dba_snv_counts = dba_strain_df['kmer'].value_counts()
-
+        # concat the per haplotype counts with a multiindex
         strain_snv_counts = pd.concat([bl_snv_counts, dba_snv_counts], keys=['BL', 'DBA'],
                                       names=['haplotype', 'kmer'])
-
-        # strain_snv_counts = per_strain_df['kmer'].value_counts()
+        # label the counts with the strain name
         strain_snv_counts.rename(index, inplace=True)
-
-        # strain_fracs_df = convert_into_fraction(per_strain_df)
-        # strain_fracs_df.rename(index, inplace=True)
-
+        # append to list, each item is a unique strain
         mut_strain.append(strain_snv_counts)
 
+    # concat so that columns are strains and rows are kmers x haplotype
     mut_strain_df = pd.concat(mut_strain, axis=1)
+    # because these are counts fill NaN as 0 or no counts
     mut_strain_df.fillna(0, inplace=True)
 
+    # split multiindex from kmer to the SNV and flanking bases
     kmer_index = mut_strain_df.index.get_level_values('kmer')
     haplo_index = mut_strain_df.index.get_level_values('haplotype')
     multi_index = [kmer_index.str[1] + '>' + kmer_index.str[-2], kmer_index.str[0], kmer_index.str[-1], haplo_index]
@@ -108,21 +66,3 @@ def mutations_by_strains_df(filtered_df):
     mut_strain_df.sort_index(axis=0, level=0, inplace=True)
 
     return mut_strain_df
-
-
-def main(data_dir, results_dir):
-    # load raw data into pandas DataFrame
-    raw_singleton_summary = load_data(data_dir)
-    # raw_singleton_summary.to_csv(results_dir + 'raw_singleton_summary')
-
-    # remove indel mutations and mutations affecting one chromosome
-    filtered_singletons = filter_raw_data(raw_singleton_summary)
-    # filtered_singletons.to_csv(results_dir + 'filtered_singletons')
-
-    # reformat kmer into 3 cols: '5-base', '3-base', 'snv'
-    # formatted_singletons = format_kmers(filtered_singletons)
-    # formatted_singletons.to_csv(results_dir + 'formatted_singletons')
-
-    # df comparing mutation spectrum for each strain
-    mutations_strains = mutations_by_strains_df(filtered_singletons)
-    mutations_strains.to_csv(results_dir + 'mutation_strains')
