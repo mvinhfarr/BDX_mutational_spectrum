@@ -5,11 +5,13 @@ import matplotlib.pyplot as plt
 import preprocess
 import visualize
 import epochs
+import haplotypes
 
 os.chdir('..')
 
 snv_data = 'data/per_chr_singleton'
 meta_data = 'data/strain_summary.csv'
+ht_data = 'data/hmm_haplotypes'
 
 results_df = 'out/dfs/'
 results_figs = 'out/figs/'
@@ -27,5 +29,6 @@ mutation_strain_df = pd.read_csv(results_df+'mutation_strains', index_col=[0, 1,
 # snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
 #    visualize.mutation_spectrum_barcharts(mutation_strain_df, show=False, save=False, results_dir=results_figs)
 
-epochs.load_meta_data(meta_data, mutation_strain_df)
+# epochs.load_meta_data(meta_data, mutation_strain_df)
 
+haplotypes.load_ht_data(ht_data)

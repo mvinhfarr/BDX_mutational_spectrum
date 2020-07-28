@@ -29,12 +29,24 @@ def convert_strain_name(name):
         return name
 
 
+def number_strains(name):
+    s = name.split('_')[0]
+
+    if s[0:3] == 'BXD':
+        num = s[3:]
+        print(name + ': ' + num)
+    else:
+        print(False)
+
+
 def load_meta_data(meta_data_csv, snv_df):
     df = pd.read_csv(meta_data_csv, header=0)
     df.dropna(axis=1, how='all', inplace=True)
     df.set_index('Expanded name', inplace=True)
 
     names = snv_df.columns
+    temp = names.map(number_strains)
+
     names = names.map(convert_strain_name)
     # names = names.dropna()
     print(names)
