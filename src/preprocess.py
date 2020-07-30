@@ -65,4 +65,10 @@ def mutations_by_strains_df(filtered_df):
     mut_strain_df.index = pd.MultiIndex.from_arrays(multi_index, names=['snv', '5\'', '3\'', 'ht'])
     mut_strain_df.sort_index(axis=0, level=0, inplace=True)
 
+    epochs = filtered_df.loc[mut_strain_df.columns, 'epoch']
+    epochs = epochs.loc[~epochs.index.duplicated(keep='first')]
+
+    mut_strain_df.columns = pd.MultiIndex.from_tuples(zip(epochs.index, epochs.values), names=['strain', 'epoch'])
+    mut_strain_df.sort_index(axis=1, level=0, inplace=True)
+
     return mut_strain_df

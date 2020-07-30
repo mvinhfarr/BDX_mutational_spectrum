@@ -178,3 +178,44 @@ def other_bar_charts(mutation_strain_df):
     temp.unstack([1]).plot(kind='bar', ax=ax3, stacked=True)
 
     # plt.show()
+
+
+def epoch_bar_charts(mutation_strain_df):
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+
+    epoch_mutation_counts = mutation_strain_df.sum(axis=1, level=1).sum(axis=0, level=0)
+    epoch_tot = epoch_mutation_counts.sum(axis=0)
+    epoch_mut_fracs = epoch_mutation_counts / epoch_tot
+
+    strain_counts = mutation_strain_df.sum(axis=0, level=0)
+    strain_tots = strain_counts.sum(axis=0)
+    strain_fracs = strain_counts / strain_tots
+
+    temp = strain_fracs.unstack().reset_index()
+    temp.rename(columns={0: 'fraction'}, inplace=True)
+    print(temp)
+
+    # strain_fracs = strain_fracs.unstack().unstack()
+    # strain_fracs = strain_fracs.T.reset_index()
+
+    # strain_fracs.T.boxplot(by=strain_fracs.columns.get_level_values(1), ax=ax3)
+    ax3 = sb.boxplot(x='snv', y='fraction', data=temp, hue='epoch')
+
+    epoch_mut_fracs.T.boxplot(ax=ax2)
+
+    epoch_mut_fracs.plot(kind='bar', ax=ax1)
+
+    ax1.set_title('Mutation Spectrum across Epochs')
+    ax1.set_ylabel('fractions')
+    ax1.legend(title='epoch')
+
+    # ax1 = plt.boxplot(epoch_mutation_counts)
+    # print(epoch_mutation_counts)
+    # print(epoch_mut_fracs)
+
+    # print(strain_counts)
+    print(strain_fracs)
+    #print(strain_fracs.index)
+
+    plt.tight_layout()
+    plt.show()

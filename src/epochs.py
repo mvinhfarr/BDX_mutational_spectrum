@@ -1,61 +1,54 @@
+import re
 import numpy as np
 import pandas as pd
 
 
-def add_leading_zero(s):
-    bxd = s[0:3]
-    num = s[3:]
-
-    if len(num) == 1:
-        s = bxd + '00' + num
-    elif len(num) == 2:
-        s = bxd + '0' + num
-
-    return s
-
-
-def convert_strain_name(name):
-    s = name.split('_')
-
-    if len(s) == 2:
-        s[0] = add_leading_zero(s[0])
-        s = s[0]
-        return s
-    elif len(s) == 3:
-        s[0] = add_leading_zero(s[0])
-        s = s[0] + '/' + s[1]
-        return s
-    else:
-        return name
-
-
-def number_strains(name):
-    s = name.split('_')[0]
-
-    if s[0:3] == 'BXD':
-        num = s[3:]
-        print(name + ': ' + num)
-    else:
-        print(False)
-
-
-def load_meta_data(meta_data_csv, snv_df):
-    df = pd.read_csv(meta_data_csv, header=0)
+def load_meta_data(f_name, strains):
+    df = pd.read_csv(f_name, header=0)
     df.dropna(axis=1, how='all', inplace=True)
     df.set_index('Expanded name', inplace=True)
 
-    names = snv_df.columns
-    temp = names.map(number_strains)
+    # filter strains
+    df = df.loc[strains, :]
 
-    names = names.map(convert_strain_name)
-    # names = names.dropna()
-    print(names)
+    return df
 
-    print(df.index)
 
-    good_strains = names.intersection(df.index)
-    bad_strains_meta = df.drop(good_strains, axis=0)
-    bad_strains = names.drop(good_strains)
-    print(good_strains)
-    print(bad_strains)
-    # print(snv_df['bxd_strain'])
+def extract_gen(s):
+    s = s.split('+')
+
+    if len(s) == 1:
+        s = s[0]
+
+        if s[0] != 'F':
+            return s
+
+        n = re.findall(r'\d+', s)
+        n = list(map(int, n))
+        return sum(n)
+    else:
+        s1 = s[0]
+        s2 = s[1]
+        n = re.findall(r'\d+', s1)
+        n += re.findall(r'\d+', s2)
+        n = list(map(int, n))
+        return sum(n)
+
+
+def gen_at_seq(df):
+    gen = df['Generation at sequencing']
+    gen.rename('generation', inplace=True)
+
+    print(gen.loc[gen.isnull()])
+    gen.dropna(inplace=True)
+
+    gen = gen.map(extract_gen)
+
+    return gen
+
+
+def main(meta_data_csv, snv_df):
+    meta_df = load_meta_data(meta_data_csv, snv_df.columns.get_level_values(0))
+    generations = gen_at_seq(meta_df)
+
+    return meta_df, generations
