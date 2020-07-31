@@ -15,40 +15,35 @@ def load_meta_data(f_name, strains):
 
 
 def extract_gen(s):
-    s = s.split('+')
-
-    if len(s) == 1:
-        s = s[0]
-
-        if s[0] != 'F':
-            return s
-
-        n = re.findall(r'\d+', s)
-        n = list(map(int, n))
-        return sum(n)
+    if pd.isnull(s):
+        return None
+    elif s[0] != 'F':
+        return None
     else:
-        s1 = s[0]
-        s2 = s[1]
-        n = re.findall(r'\d+', s1)
-        n += re.findall(r'\d+', s2)
+        n = re.findall(r'\d+', s)
         n = list(map(int, n))
         return sum(n)
 
 
 def gen_at_seq(df):
     gen = df['Generation at sequencing']
-    gen.rename('generation', inplace=True)
-
-    print(gen.loc[gen.isnull()])
-    gen.dropna(inplace=True)
-
+    gen.rename('gen', inplace=True)
     gen = gen.map(extract_gen)
-
+    print(gen.loc[gen.isnull()])
     return gen
+
+
+def get_epoch(df):
+    epoch = df['Epoch']
+    epoch.rename('epoch', inplace=True)
+    epoch.replace(to_replace='1.5', value='1', inplace=True)
+
+    return epoch
 
 
 def main(meta_data_csv, snv_df):
     meta_df = load_meta_data(meta_data_csv, snv_df.columns.get_level_values(0))
     generations = gen_at_seq(meta_df)
+    epochs = get_epoch(meta_df)
 
-    return meta_df, generations
+    return meta_df, generations, epochs

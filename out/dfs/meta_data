@@ -1,0 +1,151 @@
+snv,Official name,GeneNetwork name,Year breeding started,Date production began at JAX,JAX Stock No,Availability (as of March 2019),true_epoch,Epoch,is_AIL,Method of derivation,Mitocondrial origin (if known),October 2018 reported generation at JAX ,March 2019 reported generation at JAX,Febuary 2019 generation at UTHSC ,Generation at sequencing,Genotyped on Illumina 13377 SNP array,Genotyped on Affymetrix MouseDiversityArray600K,Generation at Affymetrix MouseDiversityArray600K,Generation at MUGA array genotyping,Generation at MegaMUGA array genotyping,Generation at GigaMUGA array genotyping,Generation went extinct (if known),Backcross and RIX-derived breeding notes,Any genotypes available
+BXD027/TyJ,BXD27/TyJ,BXD27,1971.0,8/7/2001,000041,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F139+39 ,F139+41�,182,F139+36,Y,Y,F151,F163,,,,,Y
+BXD085/RwwJ,BXD85/RwwJ,BXD85,2000.0,12/10/2008,007128,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F34+19 ,F34+20�,,F34+F14,Y,Y,,F38,,,,,Y
+BXD069/RwwJ,BXD69/RwwJ,BXD69,2000.0,9/13/2007,007114,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,?,F?+24�,68,F34+F19,Y,Y,,F44,,,,,Y
+BXD051/RwwJ,BXD51/RwwJ,BXD51,1999.0,11/13/2008,007100,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F38+F25 ,F38+F29�,74,F38+F23,Y,Y,,F44,F55,F61,,,Y
+BXD067/RwwJ,BXD67/RwwJ,BXD67,2000.0,9/2/2009,007112,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F35 ,F35�,,F34+F14,Y,Y,,F28,,,,,Y
+BXD068/RwwJ,BXD68/RwwJ,BXD68,2000.0,9/13/2007,007113,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F21+27 ,F21+31�,52,F21+F24,Y,Y,,F36,,,,,Y
+BXD022/TyJ,BXD22/TyJ,BXD22,1971.0,7/10/2001,000043,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F128p+16 ,F128p+20�,,F128+pF16,Y,Y,F130,,,,,,Y
+BXD050/RwwJ,BXD50/RwwJ,BXD50,1999.0,1/17/2008,007099,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F22+F1 ,F22+F3�,48,F21+F23,Y,Y,,F29,,F41,,,Y
+BXD012/TyJ,BXD12/TyJ,BXD12,1971.0,7/5/2001,000045,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F104+35,F104+38�,,F104+F33,Y,Y,,F123,,,,,Y
+BXD044/RwwJ,BXD44/RwwJ,BXD44,1999.0,11/29/2007,007094,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F59 ,F64�,74,F31+F27,Y,Y,,F41,,,,,Y
+BXD045/RwwJ,BXD45/RwwJ,BXD45,1999.0,9/2/2009,007096,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F20+22 ,F20+23�,,F20+F16,Y,Y,,F40,,,,,Y
+BXD075/RwwJ,BXD75/RwwJ,BXD75,2000.0,12/10/2008,007119,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F36+F18 ,F36+F20�,50,F36+F16,Y,Y,,F41,,,,,Y
+BXD024/TyJ,BXD24/TyJ,BXD24,1971.0,6/22/2002 but rederived from 1988 cryo stock in 2005,005243,"Pre-order (est. Sep 2, 2019)",1.0,1.0,0,B6 female to D2 male F2 intercross,B6,?,,123,F114,Y,Y,F84p+4(cryo)+?,F93,,,,,Y
+BXD024/TyJ-Cep290rd16/J,BBXD24/TyJ-Cep290rd16/J,BXD24a,1971.0,7/18/2001,000031 | rd16,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F140+41 ,F140+46�,,F140+F40,Y,Y,F159,,,,,,Y
+BXD031/TyJ,BXD31/TyJ,BXD31,1978.0,10/2/2001,000083,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F107+47 ,F107+49�,156,F107+F41,Y,Y,F124,F132,,,,,Y
+BXD032/TyJ-Galctwi-5J/J,BXD32/TyJ-Galctwi-5J/J,,1978.0,7/5/2001,003613 | twitcher 5 Jackson,Cryo Recovery,1.0,1.5,0,B6D2F1 male to a DBA/2J female,D2,?,,,,,,,,,,,,N
+BXD147,BXD147,BXD147,2009.0,,,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,,,N3F8,F23,,,,F8,,F23,,"Backcrossed at about F23 to C57BL/6J female, then 3 backcrosses to F23 male, followed by inbreeding again",Y
+BXD016/TyJ,BXD16/TyJ,BXD16,1971.0,7/24/2001,000013,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F141+44 ,F141+49�,190,F141+F42,Y,Y,,F179,,,,,Y
+BXD019/TyJ,BXD19/TyJ,BXD19,1971.0,6/29/2001,000010,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F125+37 ,F125+42�,,F125+F38,Y,Y,,,,F159,,,Y
+BXD002/TyJ,BXD2/TyJ,BXD2,1971.0,8/21/2001,000075,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F48p+ ,F48p+F3�,,F146+F40,Y,Y,,,,,,,Y
+BXD006/TyJ,BXD6/TyJ,BXD6,1971.0,7/2/2001,000007,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F149+40 ,F149+43�,,F149+F39,Y,Y,,,,,,,Y
+BXD056/RwwJ,BXD56/RwwJ,BXD56,1999.0,10/15/2008,007104,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F30+F21 ,F30+F25�,,F30+F21,Y,Y,,F35,,F35,,,Y
+BXD029-Tlr4lps-2J/J,BXD29-Tlr4lps-2J/J,,1971.0,7/2/2001,"000029 | defective lipopolysaccharide response, 2J",Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F136+34 ,64p+4�,,F136+F33,Y,N,,,,,,,Y
+BXD124/RwwJ,BXD124/RwwJ,BXD124,2009.0,9/5/2014,025975,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,F21+F8,F21+F9�,38,F21+F1pF4,,,,F11,F20,F26,,,Y
+BXD008/TyJ,BXD8/TyJ,BXD8,1971.0,6/2/2000,000084,"Pre-order (est. Dec 17, 2018)",1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F36p+37 ,F36p+39�,,F36p+F37,Y,Y,,,,,,,Y
+BXD086/RwwJ,BXD86/RwwJ,BXD86,2000.0,7/4/2007,007129,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F56 ,F62�,67,F35+F23,Y,Y,,F43,,F55,,,Y
+BXD029/Ty,BXD29/Ty,BXD29,1971.0,originally 8/29/2003 then 10/14/2009,010981,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F38p+21 ,F38p+24�,71,F38+pF20,Y,N,,F26,,,,,Y
+BXD048/RwwJ,BXD48/RwwJ,BXD48,1999.0,11/29/2007,007097,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F33+21 ,F33+25�,66,F33+F21,Y,Y,,F41,,,,,Y
+BXD102/RwwJ,BXD102/RwwJ,BXD102,2000.0,11/13/2008,007145,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F21+F21,F21+F23�,48,F21+F19,,Y,,F27,,F39,,,Y
+BXD021/TyJ,BXD21/TyJ,BXD21,1971.0,7/2/2001,000077,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F44p+27 ,F44p+31�,,F44+pF26,Y,Y,F44p+9,,,,,,Y
+BXD177/RwwJ,BXD177/RwwJ,BXD177,2010.0,,029881,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,?,?+F5�,30,F22,,,,,,F19,,,Y
+BXD011/TyJ,BXD11/TyJ,BXD11,1971.0,7/25/2001,000012,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F117+45,F117+49�,166,F117+F44,Y,Y,,F139,,,,,Y
+BXD175,BXD175,BXD175,2010.0,Extinct in 2017,,Extinct,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,,,,F18,,,,,,F18,,Terminate by crossing to BXD209 to generate RIX BXD228 (Jan 2017 attempt),Y
+BXD215/RwwJ,BXD215/RwwJ,BXD215,2013.0,,031977,"Pre-order (est. Mar 25, 2019)",6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,F21+F2�,22,F15,,,,,,F9,,,Y
+BXD040/TyJ,BXD40/TyJ,BXD40,1995.0,8/22/2001,003229,Repository Live,2.0,2.0,0,B6 female to D2 male F2 intercross,B6,F38+32 ,F38+35�,86,F38+F31,Y,Y,F52,F59,,,,,Y
+BXD201,BXD201,BXD201,2013.0,Extinct 2017,,Extinct,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,,F10,,,,,,F9,,"Crossed to female C57BL/6J at F10 in August 2016, then back to BXD201 male for N generations ",Y
+BXD014/TyJ,BXD14/TyJ,BXD14,1971.0,7/17/2001,000329,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F119+38 ,F119+40�,158,F119+F35,Y,Y,,F144,,,,,Y
+BXD062/RwwJ,BXD62/RwwJ,BXD62,1999.0,7/4/2007,007107,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F49 ,F58�,71,F36+F15,Y,Y,,F41,,,,,Y
+BXD083/RwwJ,BXD83/RwwJ,BXD83,2000.0,11/13/2008,007126,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F26+F18 ,F26+F21�,49,F26+F14,Y,Y,,F32,,,,,Y
+BXD078/2RwwJ,BXD78/2RwwJ,BXD78,2000.0,11/8/2013,024029,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,D2, F20p+F9 ,F20p+F10�,36,F18N5F20+F6,Y,Y,,F18N6F12,,F26?,,Backcrossed,Y
+BXD018/TyJ,BXD18/TyJ,BXD18,1971.0,7/18/2001,000015,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F128+37 ,F128+41�,,F128+F36,Y,Y,,,,,,,Y
+BXD055/RwwJ,BXD55/RwwJ,BXD55,1999.0,9/13/2007,007103,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,?,F?+21�,48,F26+F19,Y,Y,,F39,,F35?,,,Y
+BXD005/TyJ,BXD5/TyJ,BXD5,1971.0,7/5/2001,000037,"Pre-order (est. Jul 8, 2019)",1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F114+31 ,F114+35�,150,F114+F28,Y,Y,,,,,,,Y
+BXD099/RwwJ,BXD99/RwwJ,BXD99,2000.0,11/26/2008,007142,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,D2,F25+F22 ,F25+F24�,,F25+F20,Y,Y,,F28,,,,Lost at UTHSC in 2016 due to malocclusion,Y
+BXD181,BXD181,BXD181,2010.0,,,UTHSC,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,,,13,F18N2F5,,,,,,F18,,,Y
+BXD073a/RwwJ,BXD73a/RwwJ,BXD73a (BXD80),2000.0,1/17/2008,007124,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F27+16 ,F27+21�,51,F27+F16,Y,Y,,F35,,F39,,,Y
+BXD091/2RwwJ,BXD91/2RwwJ,BXD91,2000.0,6/12/2013,017751,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,D2, N1F29+F9 ,N1F29+F11�,,F16N4F21+F3pF8,Y,Y,,F21,,,,,Y
+BXD113/RwwJ,BXD113/RwwJ,BXD113,2009.0,11/8/2013,024030,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,F25+F7,F25+F16�,46,F25+F1pF6,,,,F14,F23,F30,,,Y
+BXD073/RwwJ,BXD73/RwwJ,BXD73,2000.0,9/13/2007,007117,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F21+19 ,F21+21�,71,F21+F17,Y,Y,,F43,,,,,Y
+BXD065a/RwwJ,BXD65a/RwwJ,BXD65a (BXD97),2000.0,7/4/2007,007140,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,?,F?+25�,,F31+F23,Y,Y,,F37,,,,,Y
+BXD060/RwwJ,BXD60/RwwJ,BXD60,1999.0,11/29/2007,007105,"Pre-order (est. Aug 19, 2019)",3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F39+F3p ,F39+F4pF2�,71,F39+F15,Y,Y,,F44,,,,,Y
+BXD194/RwwJ,BXD194/RwwJ,BXD194,2013.0,,030878,Repository Live,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,?+F5�,25,F17,,,,,,F12,,,Y
+BXD001/TyJ,BXD1/TyJ,BXD1,1971.0,7/2/2001,000036,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F115+40,F115+42�,157,F115+F39,Y,Y,,F144,,,,,Y
+BXD053/2RwwJ,BXD53/2RwwJ,BXD53,1999.0,2/22/2012,017749,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,?,?+F15�,,F12N2F30+F9,Y,Y,,F29,,,,,Y
+BXD065/RwwJ,BXD65/RwwJ,BXD65,1999.0,5/20/2010,007110,"Pre-order (est. Jun 3, 2019)",3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F29+15 ,F29+16�,55,F29+F11,Y,Y,,F33,,,,,Y
+BXD009/TyJ,BXD9/TyJ,BXD9,1971.0,6/29/2001,000105,"Pre-order (est. Jun 3, 2019)",1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F123+21 ,F144p�,162,F123+F35,Y,Y,,F144,,,,,Y
+BXD079/RwwJ,BXD79/RwwJ,BXD79,2000.0,10/15/2008,007123,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F21+F21 ,F21+F23�,44,F21+F19,Y,Y,,F40,,F36?,,,Y
+BXD156/RwwJ,BXD156/RwwJ,BXD156,2009.0,,029871,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,?+pF5�,,F28,,,,F7,F16,F23,,,Y
+BXD042/TyJ,BXD42/TyJ,BXD42,1995.0,3/11/2004,003230,Repository Live,2.0,2.0,0,B6 female to D2 male F2 intercross,B6, F43+46 ,F43+48�,,F43+F42,Y,Y,F60,F65,,,,,Y
+BXD043/RwwJ,BXD43/RwwJ,BXD43,1999.0,11/29/2007,007093,"Pre-order (est. Jun 17, 2019)",3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F38+21 ,F38+23�,68,F38+F17,Y,Y,,F46,,,,,Y
+BXD033/TyJ,BXD33/TyJ,BXD33,1995.0,6/25/2002,003222,Repository Live,2.0,2.0,0,B6 female to D2 male F2 intercross,B6,F39+42 ,F39+45�,,F39+F39,Y,Y,F53,,,,,,Y
+BXD137,BXD137,BXD137,2009.0,,,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,,,16,F11N4F7,,,,F8,F11,F11N4F7,,,Y
+BXD038/TyJ,BXD38/TyJ,BXD38,1995.0,7/2/2001,003227,Repository Live,2.0,2.0,0,B6 female to D2 male F2 intercross,B6, F37+35 ,F37+38�,,F37+F33,Y,Y,F52,F51,,,,,Y
+BXD090/RwwJ,BXD90/RwwJ,BXD90,2000.0,11/29/2007,007133,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,D2, F34+22 ,F35+pF2�,71,F39+20,Y,Y,,F41,,,,,Y
+BXD013/TyJ,BXD13/TyJ,BXD13,1971.0,6/2/2000,000040,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F60p+55 ,F60p+56�,,F60+pF51,Y,Y,,F90,,,,,Y
+BXD191/RwwJ,BXD191/RwwJ,BXD191,2013.0,,030877,Repository Live,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,?+F5�,28,F17,,,,,,F10,,,Y
+BXD088/2RwwJ,BXD88/2RwwJ,BXD88,2000.0,2/22/2012,017750,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,?,?+pF5�,,F15N5F21+F2pF4,Y,Y,,F21,,,,,Y
+BXD157/RwwJ,BXD157/RwwJ,BXD157,2009.0,,029872,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,?+F6�,,F23,,,,F7,F16,F22,,,Y
+BXD015/TyJ,BXD15/TyJ,BXD15,1971.0,7/9/2001,000095,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6,F99+32 ,F99+35�,133,F99+F27,Y,Y,,,,,,,Y
+BXD034/TyJ,BXD34/TyJ,BXD34,1995.0,7/10/2001,003223,Repository Live,2.0,2.0,0,B6 female to D2 male F2 intercross,B6, F44+36 ,F44+39�,86,F44+F35,Y,Y,,F66,,,,,Y
+BXD020/TyJ,BXD20/TyJ,BXD20,1971.0,2/10/2003,000330,Repository Live,1.0,1.0,0,B6 female to D2 male F2 intercross,B6, F48N5F75+10pF5 ,F48N5F75+10pF6�,,F48N5F75+10pF12,Y,Y,,,,,,,Y
+BXD168/RwwJ,BXD168/RwwJ,BXD168,2009.0,,029874,"Pre-order (est. Apr 8, 2019)",5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,F24+F1 ,F?+F4�,29,F25,,,,F6,,F21,,,Y
+BXD187/RwwJ,BXD187/RwwJ,BXD187,2013.0,,031974,"Pre-order (est. Jul 29, 2019)",6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,F21+F1�,24,F17,,,,,,F12,,,Y
+BXD098/RwwJ,BXD98/RwwJ,BXD98,2000.0,7/4/2007,007141,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F28+26 ,F28+28�,,F28+F21,Y,Y,,F40,,F48,,,Y
+BXD077/RwwJ,BXD77/RwwJ,BXD77,2000.0,11/29/2007,007121,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F61 ,F63�,69,F34+F25,Y,Y,,F42,,,,,Y
+BXD049/RwwJ,BXD49/RwwJ,BXD49,1999.0,10/15/2008,007098,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F20+F21 ,F20+F24�,,F20+F18,Y,Y,,F24,,F36,,,Y
+BXD172/RwwJ,BXD172/RwwJ,BXD172,2010.0,,029880,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,?,F31+F4�,41,F32,,,,,,F26,,,Y
+BXD066/RwwJ,BXD66/RwwJ,BXD66,1999.0,1/17/2008,007111,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,?,F?+2p+21�,67,F33+F2pF17,Y,Y,,F41,,F53,,,Y
+BXD225,BXD225,,2016.0,Extinct August 2018,,Extinct,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,,(BXD109F13N1F9 X BXD189-F14)F3,,,,,,,,(BXD109F13N1F9 X BXD189-F14),Y
+BXD073b/RwwJ,BXD73b/RwwJ,BXD73b (BXD103),2000.0,12/10/2008,007146,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F17+19 ,F17+22�,44,F17+F17,,Y,,F22,,F34,,,Y
+BXD202/RwwJ,BXD202/RwwJ,BXD202,2013.0,,031975,"Pre-order (est. Mar 25, 2019)",6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,F21+F2�,25,F15,,,,,,F10,,,Y
+BXD081/RwwJ,BXD81/RwwJ,BXD81,2000.0,7/23/2009,007125,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F31+pF5pF2 ,F31+pF5pF10�,,F31+F5pF3,Y,Y,,F35,,,,,Y
+BXD070/RwwJ,BXD70/RwwJ,BXD70,2000.0,4/3/2008,007115,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F31+18 ,F31+26�,63,F31+F19,Y,Y,,F39,,F49,,,Y
+BXD039/TyJ,BXD39/TyJ,BXD39,1995.0,7/2/2001,003228,Repository Live,2.0,2.0,0,B6 female to D2 male F2 intercross,B6, F45+40 ,F45+41�,,F45+F36,Y,Y,F62,F69,,,,,Y
+BXD063/RwwJ,BXD63/RwwJ,BXD63,1999.0,9/16/2009,007108,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F44 ,F52�,64,F45+F15,Y,Y,,F34,,F53,,,Y
+BXD071/RwwJ,BXD71/RwwJ,BXD71,2000.0,11/13/2009,007116,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F26+24 ,F26+25�,50,F26+F16,Y,Y,,F31,,,,,Y
+BXD095/RwwJ,BXD95/RwwJ,BXD95,2000.0,1/20/2012,007138,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,D2, F22+F8 ,F22+F15�,,F22+F11,Y,Y,,F26,,,,,Y
+BXD223,BXD223,,2016.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,12,(BXD188-F16 X BXD140-F8N1toFemB6D2F1F8)F4,,,,,,,,(BXD188-F16 X BXD140-F8N1(to female B6D2F1)F8,Y
+BXD065b/RwwJ,BXD65b/RwwJ,BXD65b (BXD92),2000.0,1/20/2012,009677,Cryo Recovery,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,?,,,,Y,Y,,F44,,,,,Y
+BXD114,BXD114,BXD114,2009.0,,-,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,-,,17,F9N7F12,,,,F8,,F7,,,Y
+BXD064/RwwJ,BXD64/RwwJ,BXD64,1999.0,10/15/2008,007109,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F45+15 ,F45+22�,,F45+F17,Y,Y,,F51,,,,,Y
+BXD178/RwwJ,BXD178/RwwJ,BXD178,2010.0,,029882,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,?,?+F3�,30,F23,,,,,,F19,,,Y
+BXD190/RwwJ,BXD190/RwwJ,BXD190,2013.0,,030876,Repository Live,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,?+F3�,28,F18,,,,,,F13,,,Y
+BXD154/RwwJ,BXD154/RwwJ,BXD154,2009.0,9/5/2014,025976,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,F20+F8 ,F20+F11�,38,F20+pF5,,,,F9,,F24,,,Y
+BXD160/RwwJ,BXD160/RwwJ,BXD160,2009.0,,029873,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,F27+F2 ,F27+F4�,36,F28,,,,,,F23,,,Y
+BXD222,BXD222,,2016.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,13,(BXD110-F10N3F9 X BXD206-F13)F3,,,,,,,,(BXD110N3-F9 X BXD206-F13),Y
+BXD048a/RwwJ,BXD48a/RwwJ,BXD48a (BXD96),1999.0,9/13/2007,007139,Repository Live,3.5,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F21+14 ,F21+23�,54,F21+F18,Y,Y,,F28,,,,,Y
+BXD061/RwwJ,BXD61/RwwJ,BXD61,1999.0,9/13/2007,007106,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,D2, F28+14 ,F28+17�,50,F28+F13,Y,Y,,F42,,F42,,,Y
+BXD213,BXD213,BXD213,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,20,F15,,,,,,F11,,,Y
+BXD150/RwwJ,BXD150/RwwJ,BXD150,2009.0,,029867,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,F27+F5�,34,F27,,,,F8,,F23,,,Y
+BXD170/RwwJ,BXD170/RwwJ,BXD170,2010.0,,029878,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,F32+F3 ,F32+F6�,45,F34,,,,,,F27,,,Y
+BXD180/RwwJ,BXD180/RwwJ,BXD180,2010.0,,029883,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,F26+F3 ,F26+F4�,38,F26,,,,,,F20,,,Y
+BXD152/RwwJ,BXD152/RwwJ,BXD152 ,2009.0,,029869,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,F25+F2 ,F25+F5�,35,F26,,,,F9,F16,F22,,,Y
+BXD183,BXD183,BXD183,2010.0,,,UTHSC,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,,,19,F7N4F13,,,,,,F7N4F8,,,Y
+BXD123/RwwJ,BXD123/RwwJ,BXD123,2009.0,9/5/2014,025974,Cryo Recovery,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,,38,F30,,,,F9,F20,F25,,,Y
+BXD211,BXD211,BXD211,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,,F16,,,,,,F11,,,Y
+BXD171/RwwJ,BXD171/RwwJ,BXD171,2010.0,,029879,"Pre-order (est. Jun 3, 2019)",5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,?,F?+F1�,36,F28,,,,,,F23,,,Y
+BXD101/RwwJ,BXD101/RwwJ,BXD101,2000.0,3/26/2009,007144,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6, F26+20 ,F26+22�,58,F26+F14,,Y,,F29,,F47,,,Y
+BXD128/RwwJ,BXD128/RwwJ,BXD128,2009.0,,030874,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,?+F3�,28,F26,,,,F9,F18,F23,,,Y
+BXD196,BXD196,BXD196,2013.0,Extinct,,Extinct,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,,F16,,,,,,F11,,Used to make RIX with BXD192 to make BXD227,Y
+BXD205,BXD205,BXD205,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,22,F15,,,,,,F11,,,Y
+BXD161/RwwJ,BXD161/RwwJ,BXD161,2009.0,9/5/2014,025985,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6, F23+F5 ,F23+F10�,40,F23+pF3,,,,F7,,F25,,,Y
+BXD089/RwwJ,BXD89/RwwJ,BXD89,,Extinct,,Extinct,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,,,F57�,60,,Y,Y,,,,,,,Y
+BXD125/RwwJ,BXD125/RwwJ,BXD125,2009.0,11/8/2013,024031,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,F22+F5,F22+F11�,39,F22+F18,,,,F10,F23,F30,,,Y
+BXD100/RwwJ,BXD100/RwwJ,BXD100,2000.0,7/4/2007,007143,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F43,F51�,,F22+F23,Y,Y,,F32,,,,,Y
+BXD074/RwwJ,BXD74/RwwJ,BXD74,2000.0,10/15/2008,007118,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,D2,F45+14 ,F45+20�,70,F45+F15,Y,Y,,F49,,F60,,,Y
+BXD131,BXD131,BXD131,2009.0,,,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,,,14,F10N8F9,,,,F9,,F10N8F4,,,Y
+BXD122/RwwJ,BXD122/RwwJ,BXD122,2009.0,,030873,Registering Interest,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,?+F1�,28,F23,,,,F11,F15,F21,,,Y
+BXD144/RwwJ,BXD144/RwwJ,BXD144,2009.0,9/5/2014,025984,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,F?+F5�,37,F28,,,,F9,,F24,,,Y
+BXD184/RwwJ,BXD184/RwwJ,BXD184,2010.0,,029884,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,?,?+F6�,,F22,,,,,,F18,,,Y
+BXD216/RwwJ,BXD216/RwwJ,BXD216,2013.0,,031978,"Pre-order (est. Mar 25, 2019)",6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,F23+F2�,26,F17,,,,,,F11,,,Y
+BXD084/RwwJ,BXD84/RwwJ,BXD84,2000.0,12/10/2008,007127,Repository Live,3.0,3.0,1,Advanced intercross progeny of B6 female to D2 male,B6,F20?+F18 ,F20?+F21�,58,F29+F17,Y,Y,,F34,,F48,,,Y
+BXD162,BXD162,BXD162,2009.0,,,UTHSC,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,,,18,F10N6F9,,,,F6,,F10N6F4,,,Y
+BXD198,BXD198,BXD198,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,19,F15,,,,,,F11,,,Y
+BXD148,BXD148,BXD148,2009.0,,,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,,,14,F11N3F9,,,,F8,F11,F11N3F5,,,Y
+BXD204,BXD204,BXD204,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,17,F15,,,,,,F11,,,Y
+BXD218,BXD218,BXD218,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,22,F13,,,,,,F8,,,Y
+BXD209,BXD209,BXD209,2013.0,Extinct 2016,,Extinct,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,,F10,,,,,,F8,,Used to make RIX with BXD175a to make BXD228 in Jan 2017,Y
+BXD214/RwwJ,BXD214/RwwJ,BXD214,2013.0,,030882,Repository Live,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,?+F3�,26,F16,,,,,,F11,,,Y
+BXD169/RwwJ,BXD169/RwwJ,BXD169,2010.0,,029876,Repository Live,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,?,?+F5�,31,F26,,,,,,F20,,,Y
+BXD141/RwwJ,BXD141/RwwJ,BXD141,2009.0,,029865,"Pre-order (est. Jun 3, 2019)",4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,F27+F1�,28,F24,,,,F9,F19,F22,,,Y
+BXD036/TyJ,BXD36/TyJ,BXD36,1995.0,7/24/2001,003225,Extinct,2.0,2.0,0,B6 female to D2 male F2 intercross,B6,?,,,F44+F14pF22,Y,Y,F60,F65,,,,,Y
+BXD173,BXD173,BXD173,2010.0,,,UTHSC,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,,,,F6N3F13,,,,F6,,F6N3F9,,,Y
+BXD127,BXD127,BXD127,2009.0,,-,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,-,,10,F14N3F6,,,,F8,,F14N2F2,,,Y
+BXD176,BXD176,BXD176,2010.0,,,UTHSC,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,,,20,F6N3F12,,,,,,F6N3F9,,,Y
+BXD174,BXD174,BXD174,2010.0,,,UTHSC,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6,,,21,F6N6F12,,,,,,F6N6F7,,,Y
+BXD195/RwwJ,BXD195/RwwJ,BXD195,2013.0,,030879,Registering Interest,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,,29,F19,,,,,,F13,,,Y
+BXD111/RwwJ,BXD111/RwwJ,BXD111,2009.0,,030872,"Pre-order (est. Sep 30, 2019)",4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,,31,F24,,,,,,F21,,,Y
+BXD186/RwwJ,BXD186/RwwJ,BXD186,2010.0,,029885,Registering Interest,5.0,5.0,1,"Advanced intercross progeny of B6 female to D2 male (G8-G9, donated by A. Palmer)",B6, F25+F1 ,F25+F1�,31,F25,,,,,,F21,,,Y
+BXD221,BXD221,,2016.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,11,(BXD220-F8 X BXD130-F7N2F6)F3,,,,,,,,(BXD220-F8 X BXD130-F7N2F6),Y
+BXD197/RwwJ,BXD197/RwwJ,BXD197,2013.0,,030880,Repository Live,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,?+F4�,28,F18,,,,,,F12,,,Y
+BXD151/RwwJ,BXD151/RwwJ,BXD151,2009.0,,029868,Repository Live,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,?,?+F5�,37,F27,,,,F8,F11,F22,,,Y
+BXD149,BXD149,BXD149,2009.0,,,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,,,13,F9N4F7,,,,F7,,F9N4F3,,,Y
+BXD224,BXD224,,2016.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,14,(BXD200-F12 X BXD207-F10)F4,,,,,,,,(BXD200-F12 X BXD207-F10),Y
+BXD217,BXD217,BXD217,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,14,F11,,,,,,F7,,,Y
+BXD219,BXD219,BXD219,2013.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,20,F14,,,,,,F9,,,Y
+BXD155,BXD155,BXD155,2009.0,,,UTHSC,4.0,4.0,0,B6 female to D2 male F2 intercross,B6,,,32,F22,,,,F7,F15,F19,,,Y
+BXD226,BXD226,,2016.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,11,(BXD212-F14 X BXD134-F8)F3,,,,,,,,(BXD212-F14 X BXD134-F8),Y
+BXD199/RwwJ,BXD199/RwwJ,BXD199,2013.0,,030881,Repository Live,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,?,?+F4�,31,F18,,,,,,F11,,,Y
+BXD227,BXD227,,2016.0,,,UTHSC,6.0,6.0,0,B6 female to D2 male F2 intercross,B6,,,11,(BXD192-F8 X BXD196-F16)F2,,,,,,,,(BXD192-F8 X BXD196-F16),Y

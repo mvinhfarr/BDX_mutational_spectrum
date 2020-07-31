@@ -116,10 +116,9 @@ def mutations_by_strains_df(filtered_df):
 
 
 def main(data, results_dir):
-    if os.path.isdir(data):
-        # load raw data into pandas DataFrame
-        raw_singleton_summary = load_summary_dir(data)
-        # raw_singleton_summary.to_csv(results_dir + 'raw_singleton_summary')
+    # load raw data from dir of chroms into pandas DataFrame
+    raw_singleton_summary = load_summary_dir(data)
+    # raw_singleton_summary.to_csv(results_dir + 'raw_singleton_summary')
 
     # remove indel mutations and mutations affecting one chromosome
     filtered_singletons = filter_raw_data(raw_singleton_summary)

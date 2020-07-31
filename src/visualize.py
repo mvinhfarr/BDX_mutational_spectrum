@@ -195,15 +195,9 @@ def epoch_bar_charts(mutation_strain_df):
     temp.rename(columns={0: 'fraction'}, inplace=True)
     print(temp)
 
-    # strain_fracs = strain_fracs.unstack().unstack()
-    # strain_fracs = strain_fracs.T.reset_index()
-
-    # strain_fracs.T.boxplot(by=strain_fracs.columns.get_level_values(1), ax=ax3)
-    ax3 = sb.boxplot(x='snv', y='fraction', data=temp, hue='epoch')
+    sb.boxplot(x='snv', y='fraction', data=temp, hue='epoch', ax=ax1)
 
     epoch_mut_fracs.T.boxplot(ax=ax2)
-
-    epoch_mut_fracs.plot(kind='bar', ax=ax1)
 
     ax1.set_title('Mutation Spectrum across Epochs')
     ax1.set_ylabel('fractions')

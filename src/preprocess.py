@@ -3,10 +3,16 @@ import pandas as pd
 
 
 def main(input_path):
+    # new version of preprocess only handles singleton file including all chroms
     if os.path.isfile(input_path):
         raw_summary = load_formatted_csv(input_path)
+    else:
+        raise IsADirectoryError('input path should be formatted singletons csv')
 
+    # filter indel and heterozygous mutations
     filtered_summary = filter_raw_data(raw_summary)
+    # counts of 3-mer mutations split by haplotype for each strain
+    # includes epoch data
     mutation_strain_df = mutations_by_strains_df(filtered_summary)
 
     return raw_summary, filtered_summary, mutation_strain_df
@@ -55,7 +61,7 @@ def mutations_by_strains_df(filtered_df):
 
     # concat so that columns are strains and rows are kmers x haplotype
     mut_strain_df = pd.concat(mut_strain, axis=1)
-    # because these are counts fill NaN as 0 or no counts
+    # because these are counts fill NaN as 0
     mut_strain_df.fillna(0, inplace=True)
 
     # split multiindex from kmer to the SNV and flanking bases
@@ -64,11 +70,5 @@ def mutations_by_strains_df(filtered_df):
     multi_index = [kmer_index.str[1] + '>' + kmer_index.str[-2], kmer_index.str[0], kmer_index.str[-1], haplo_index]
     mut_strain_df.index = pd.MultiIndex.from_arrays(multi_index, names=['snv', '5\'', '3\'', 'ht'])
     mut_strain_df.sort_index(axis=0, level=0, inplace=True)
-
-    epochs = filtered_df.loc[mut_strain_df.columns, 'epoch']
-    epochs = epochs.loc[~epochs.index.duplicated(keep='first')]
-
-    mut_strain_df.columns = pd.MultiIndex.from_tuples(zip(epochs.index, epochs.values), names=['strain', 'epoch'])
-    mut_strain_df.sort_index(axis=1, level=0, inplace=True)
 
     return mut_strain_df
