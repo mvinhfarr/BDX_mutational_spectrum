@@ -8,43 +8,56 @@ import visualize
 import meta
 import haplotypes
 
-
 snv_data_dir = 'data/per_chr_singleton'
 snv_data_file = 'data/bxd_singletons_reformatted.csv'
-meta_data = 'data/strain_summary.csv'
-ht_data = 'data/hmm_haplotypes'
+meta_data_file = 'data/strain_summary.csv'
+ht_data_dir = 'data/hmm_haplotypes'
 
 results_df = 'out/dfs/'
 results_figs = 'out/figs/'
 
-# load raw data; filter; format
-raw_summary, filtered_summary, muts_by_strains = preprocess.main(snv_data_file)
+# # load raw data; filter; format; mutation spectra counts
+# raw_summary, filtered_summary, muts_by_strains = preprocess.main(snv_data_file)
+#
+# raw_summary.to_csv(results_df + 'raw_singletons')
+# filtered_summary.to_csv(results_df + 'filtered_singletons')
+# muts_by_strains.to_csv(results_df + 'mutations_by_strains')
 
-raw_summary.to_csv(results_df + 'raw_singletons')
-filtered_summary.to_csv(results_df + 'filtered_singletons')
-muts_by_strains.to_csv(results_df + 'mutations_by_strains')
+raw_df = pd.read_csv(results_df + 'raw_singletons', index_col=0)
+filtered_df = pd.read_csv(results_df + 'filtered_singletons', index_col=0)
+mut_strain_df = pd.read_csv(results_df + 'mutations_by_strains', index_col=[0, 1, 2, 3], header=0)
 
-raw_df = pd.read_csv(results_df+'raw_singletons', index_col=0)
-filtered_df = pd.read_csv(results_df+'filtered_singletons', index_col=0)
-mut_strain_df = pd.read_csv(results_df+'mutations_by_strains', index_col=[0, 1, 2, 3], header=[0, 1])
+# # load meta data; filter; extract generation at sequence and epoch
+# meta_data, gen_seq, epochs = meta.main(meta_data_file, mut_strain_df)
+#
+# meta_data.to_csv(results_df+'meta_data')
+# gen_seq.to_csv(results_df+'gen_at_seq')
+# epochs.to_csv(results_df+'epochs')
 
-# load meta data; extract generation at sequence and epoch
-meta_data, gen_seq, epochs = meta.main(meta_data, mut_strain_df)
+meta_df = pd.read_csv(results_df + 'meta_data', index_col=0, header=0)
+gens_df = pd.read_csv(results_df + 'gen_at_seq', index_col=0, header=0)
+epoch_df = pd.read_csv(results_df + 'epochs', index_col=0, header=0)
 
-meta_data.to_csv(results_df+'meta_data')
-gen_seq.to_csv(results_df+'gen_at_seq')
-epochs.to_csv(results_df+'epochs')
+# snv_df -> count and fraction of total for each the 6 snv types
+# bl_df/dba_df -> count and fract of per haplotype total
+# snv_df, bl_df, dba_df = visualize.mutation_spectrum_barcharts_simple(mut_strain_df, show=True, save=False,
+#                                                                      results_dir=results_figs)
 
-meta_df = pd.read_csv(results_df+'meta_data', index_col=0, header=0)
-generations_df = pd.read_csv(results_df+'gen_at_seq', index_col=0, header=0)
-epoch_df = pd.read_csv(results_df+'epochs', index_col=0, header=0)
+# snv_frac_per_strain -> divide mut_strain_df by per strain totals
+# snv_frac_strain_avg -> collapse into snv and find average strain
+# ht_snv_frac_strain_avg -> collapse into snv by ht and find average strain
+# snv_tot_frac -> collapse counts across strains (same as snv_df)
+# ht_snv_tot_frac -> collapse counts across strains but divide by ht (same as bl_df/dba_df)
+snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
+    visualize.mutation_spectrum_barcharts(mut_strain_df, show=False, save=False, results_dir=results_figs)
 
+# muts_per_strain, muts_per_strain_per_gen = visualize.strain_distrb(mut_strain_df, epoch_df, gens_df)
+
+# visualize.other_bar_charts(mut_strain_df)
+
+# NOT WORKING
 # visualize.epoch_bar_charts(mut_strain_df)
 
-# snv_df, bl_df, dba_df = visualize.mutation_spectrum_barchartsv1(mutations_strains,
-# show=True, save=False, results_dir=results_figs)
+mut_frac, ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df)
 
-# snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
-#    visualize.mutation_spectrum_barcharts(mutation_strain_df, show=False, save=False, results_dir=results_figs)
-
-# haplotypes.main(ht_data, filtered_df)
+# haplotypes.main(ht_data_dir, filtered_df)

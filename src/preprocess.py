@@ -69,6 +69,9 @@ def mutations_by_strains_df(filtered_df):
     haplo_index = mut_strain_df.index.get_level_values('haplotype')
     multi_index = [kmer_index.str[1] + '>' + kmer_index.str[-2], kmer_index.str[0], kmer_index.str[-1], haplo_index]
     mut_strain_df.index = pd.MultiIndex.from_arrays(multi_index, names=['snv', '5\'', '3\'', 'ht'])
+
+    # sort index and columns
     mut_strain_df.sort_index(axis=0, level=0, inplace=True)
+    mut_strain_df.sort_index(axis=1, inplace=True)
 
     return mut_strain_df
