@@ -194,33 +194,6 @@ def strain_distrb(muts, epochs, gens, show=True, save=False):
     return muts_per_strain, muts_per_strain_per_gen
 
 
-def mutation_spectrum_heatmap(mut_df):
-    mut_df = mut_df.sum(axis=1)
-    tot = mut_df.sum()
-    mut_frac = mut_df/tot
-
-    bl_frac = mut_frac.xs('BL', level='ht')
-    dba_frac = mut_frac.xs('DBA', level='ht')
-
-    ratio_props = bl_frac/dba_frac
-
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
-
-    sb.heatmap(ratio_props.unstack(level=2), ax=ax1, cmap='bwr', cbar=True, square=True, center=1)
-    ax1.hlines(range(4, 96, 4), *ax1.get_xlim())
-
-    ax1.set_title('Ratio of proportions of SNVs between BL6: DBA')
-    # ax1.set_ylabel('3\'')
-
-    plt.tight_layout()
-
-    # plt.savefig('out/ratio_props_heatmap.pdf')
-    plt.close(1)
-    plt.show()
-
-    return mut_frac, ratio_props
-
-
 def other_bar_charts(mutation_strain_df):
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
 
@@ -264,3 +237,86 @@ def epoch_bar_charts(mutation_strain_df):
 
     plt.tight_layout()
     plt.show()
+
+
+def mutation_rate(chroms, epochs, gens, show=True, save=False):
+    # get rid of chr11 which has no data
+    chroms.dropna(axis=0, inplace=True)
+
+    # gens.index = gens.index.map(filtered_df.loc[gens.index, 'bxd_strain'].drop_duplicates())
+    # epochs.index = epochs.index.map(filtered_df.loc[epochs.index, 'bxd_strain'].drop_duplicates())
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+
+    muts_per_chrom_per_gen_per_ht = chroms / gens.gen
+    muts_per_chrom_per_gen_per_ht = muts_per_chrom_per_gen_per_ht.stack()
+    muts_per_chrom_per_gen_per_ht.index.rename(['chrom', 'ht', 'strain'], inplace=True)
+
+    muts_per_chrom_per_gen = muts_per_chrom_per_gen_per_ht.sum(level=[0, 2])
+
+    muts_per_chrom_per_gen.rename('rate', inplace=True)
+    muts_per_chrom_per_gen = muts_per_chrom_per_gen.reset_index()
+    muts_per_chrom_per_gen['epoch'] = muts_per_chrom_per_gen['strain'].map(epochs.epoch)
+
+    muts_per_chrom_per_gen_per_ht.rename('rate', inplace=True)
+    muts_per_chrom_per_gen_per_ht = muts_per_chrom_per_gen_per_ht.reset_index()
+    muts_per_chrom_per_gen_per_ht['epoch'] = muts_per_chrom_per_gen_per_ht['strain'].map(epochs.epoch)
+
+    # muts_per_chrom_per_gen = muts_per_chrom_per_gen_per_ht.set_index('ht').sum(axis=0)
+
+    sb.boxplot(x='chrom', y='rate', data=muts_per_chrom_per_gen, palette='Set3', ax=ax1)
+
+    sb.boxplot(x='chrom', y='rate', hue='epoch', data=muts_per_chrom_per_gen, palette='Set1', ax=ax3)
+
+    sb.boxplot(x='chrom', y='rate', hue='ht', data=muts_per_chrom_per_gen_per_ht, palette='Set1', ax=ax2)
+
+    # double plots data point for dba and not
+    sb.boxplot(x='chrom', y='rate', hue='epoch', data=muts_per_chrom_per_gen_per_ht, palette='Set1', ax=ax4)
+
+    ax1.set_title('Mutations per Generation per Chromosome')
+    ax1.set_xlabel('Chromosome')
+    ax1.set_ylabel('Mutations / Generations')
+
+    ax2.set_title('Mutations per Generation by Haplotype')
+    ax2.set_xlabel('Chromosome')
+    ax2.set_ylabel('Mutations / Generations')
+
+    ax3.set_title('Mutations per Generation by Epoch')
+    ax3.set_xlabel('Chromosome')
+    ax3.set_ylabel('Mutations / Generations')
+
+    ax4.set_title('Mutations per Generation by Epoch w/o combining haplotypes')
+    ax4.set_xlabel('Chromosome')
+    ax4.set_ylabel('Mutations / Generations')
+
+    plt.tight_layout()
+
+    if show:
+        plt.show()
+
+    return muts_per_chrom_per_gen_per_ht
+
+
+def mutation_spectrum_heatmap(df):
+    df = df.sum(axis=1)
+    tot = df.sum()
+    mut_frac = df / tot
+
+    bl_frac = mut_frac.xs('BL', level='ht')
+    dba_frac = mut_frac.xs('DBA', level='ht')
+
+    ratio_props = bl_frac/dba_frac
+
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+
+    sb.heatmap(ratio_props.unstack(level=2), ax=ax1, cmap='bwr', cbar=True, square=True, center=1)
+    ax1.hlines(range(4, 96, 4), *ax1.get_xlim())
+
+    ax1.set_title('Ratio of proportions of SNVs between BL6: DBA')
+    # ax1.set_ylabel('3\'')
+
+    plt.tight_layout()
+
+    # plt.savefig('out/ratio_props_heatmap.pdf')
+    plt.show()
+
+    return mut_frac, ratio_props

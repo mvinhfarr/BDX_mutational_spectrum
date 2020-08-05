@@ -48,8 +48,8 @@ epoch_df = pd.read_csv(results_df + 'epochs', index_col=0, header=0)
 # ht_snv_frac_strain_avg -> collapse into snv by ht and find average strain
 # snv_tot_frac -> collapse counts across strains (same as snv_df)
 # ht_snv_tot_frac -> collapse counts across strains but divide by ht (same as bl_df/dba_df)
-snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
-    visualize.mutation_spectrum_barcharts(mut_strain_df, show=False, save=False, results_dir=results_figs)
+# snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
+#     visualize.mutation_spectrum_barcharts(mut_strain_df, show=False, save=False, results_dir=results_figs)
 
 # muts_per_strain, muts_per_strain_per_gen = visualize.strain_distrb(mut_strain_df, epoch_df, gens_df)
 
@@ -58,6 +58,20 @@ snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, 
 # NOT WORKING
 # visualize.epoch_bar_charts(mut_strain_df)
 
-mut_frac, ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df)
+# ht_dict, d2_frac_df, muts_per_chrom = haplotypes.main(ht_data_dir, filtered_df)
+#
+ht_dict_dir = 'ht_dict/'
+# for key, df in ht_dict.items():
+#     df.to_csv(results_df + ht_dict_dir + key)
+# d2_frac_df.to_csv(results_df + 'd2_frac_per_chrom')
+# muts_per_chrom.to_csv(results_df + 'muts_per_chrom')
 
-# haplotypes.main(ht_data_dir, filtered_df)
+ht_strain_dict = {}
+for f in os.listdir(results_df+ht_dict_dir):
+    ht_strain_dict[f] = pd.read_csv(results_df+ht_dict_dir+f, index_col=0, header=0)
+d2_frac_df = pd.read_csv(results_df+'d2_frac_per_chrom', index_col=0, header=0)
+muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], header=0)
+
+muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df)
+
+mut_frac, ht_ratio = visualize.mutation_spectrum_heatmap(filtered_df)
