@@ -2,4 +2,4 @@ data
 
 .idea
 
-**/out/dfs/ht_dict/
+out/dfs/ht_dict
