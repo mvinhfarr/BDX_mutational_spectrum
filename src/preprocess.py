@@ -42,9 +42,9 @@ def mutations_by_strains_df(filtered_df):
     # list of mutation counts by strain as Series
     mut_strain = []
 
-    for index in strains:
+    for str in strains:
         # create a sub df of mutations for each strain
-        per_strain_df = filtered_df.loc[index, :]
+        per_strain_df = filtered_df.loc[[str], :]
         # divide per_strain_df into two new ones by haplotype
         bl_strain_df = per_strain_df[per_strain_df['haplotype'] == 0]
         dba_strain_df = per_strain_df[per_strain_df['haplotype'] == 1]
@@ -55,7 +55,7 @@ def mutations_by_strains_df(filtered_df):
         strain_snv_counts = pd.concat([bl_snv_counts, dba_snv_counts], keys=['BL', 'DBA'],
                                       names=['haplotype', 'kmer'])
         # label the counts with the strain name
-        strain_snv_counts.rename(index, inplace=True)
+        strain_snv_counts.rename(str, inplace=True)
         # append to list, each item is a unique strain
         mut_strain.append(strain_snv_counts)
 

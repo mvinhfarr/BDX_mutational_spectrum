@@ -9,7 +9,8 @@ params = {'legend.fontsize': 'x-small',
           'xtick.labelsize': 'x-small',
           'ytick.labelsize': 'x-small',
           'axes.titlesize': 'medium',
-          'axes.labelsize': 'small'}
+          'axes.labelsize': 'small',
+          'figure.autolayout': True}
 plt.rcParams.update(params)
 
 
@@ -296,23 +297,34 @@ def mutation_rate(chroms, epochs, gens, show=True, save=False):
     return muts_per_chrom_per_gen_per_ht
 
 
-def mutation_spectrum_heatmap(df):
-    df = df.sum(axis=1)
-    tot = df.sum()
-    mut_frac = df / tot
+# df -> index=3mers/haplotype, cols=strains
+def mutation_spectrum_heatmap(df, per_chrom=False):
+    # collapse strains
+    df = df.sum(axis=1).unstack(level='ht')
+    # sum of all mutations by haplotype
+    ht_tot = df.sum(axis=0)
+    # mutation spectrum as fraction of per haplotype mutations i.e. BL6 and DBA sum to 1
+    mut_frac = df / ht_tot
 
-    bl_frac = mut_frac.xs('BL', level='ht')
-    dba_frac = mut_frac.xs('DBA', level='ht')
+    # bl_frac = mut_frac.xs('BL', level='ht')
+    # dba_frac = mut_frac.xs('DBA', level='ht')
 
-    ratio_props = bl_frac/dba_frac
+    ratio_props = mut_frac['BL'] / mut_frac['DBA']
 
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+    fig, ax = plt.subplots()
 
-    sb.heatmap(ratio_props.unstack(level=2), ax=ax1, cmap='bwr', cbar=True, square=True, center=1)
-    ax1.hlines(range(4, 96, 4), *ax1.get_xlim())
+    heat_ax = sb.heatmap(ratio_props.unstack(level=2), cmap='bwr', cbar=True, square=True,
+               vmin=0.85, vmax=1.15, xticklabels=True, yticklabels=True)
+    heat_ax.hlines(range(4, 96, 4), *heat_ax.get_xlim())
 
-    ax1.set_title('Ratio of proportions of SNVs between BL6: DBA')
+    heat_ax.set_title('Ratio of proportions of SNVs for between BL6: DBA')
+    heat_ax.set_xticklabels(heat_ax.get_xticklabels(), rotation=0)
     # ax1.set_ylabel('3\'')
+
+    if per_chrom:
+        return heat_ax
+    else:
+        ax = heat_ax
 
     plt.tight_layout()
 

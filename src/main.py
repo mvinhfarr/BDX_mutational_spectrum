@@ -7,6 +7,7 @@ import preprocess
 import visualize
 import meta
 import haplotypes
+import per_chrom
 
 snv_data_dir = 'data/per_chr_singleton'
 snv_data_file = 'data/bxd_singletons_reformatted.csv'
@@ -58,20 +59,22 @@ epoch_df = pd.read_csv(results_df + 'epochs', index_col=0, header=0)
 # NOT WORKING
 # visualize.epoch_bar_charts(mut_strain_df)
 
-ht_dict, d2_frac_df, muts_per_chrom = haplotypes.main(ht_data_dir, filtered_df)
+# ht_dict, d2_frac_df, muts_per_chrom = haplotypes.main(ht_data_dir, filtered_df)
 
 ht_dict_dir = 'ht_dict/'
-for key, df in ht_dict.items():
-    df.to_csv(results_df + ht_dict_dir + key)
-d2_frac_df.to_csv(results_df + 'd2_frac_per_chrom')
-muts_per_chrom.to_csv(results_df + 'muts_per_chrom')
+# for key, df in ht_dict.items():
+#     df.to_csv(results_df + ht_dict_dir + key)
+# d2_frac_df.to_csv(results_df + 'd2_frac_per_chrom')
+# muts_per_chrom.to_csv(results_df + 'muts_per_chrom')
 
-ht_strain_dict = {}
-for f in os.listdir(results_df+ht_dict_dir):
-    ht_strain_dict[f] = pd.read_csv(results_df+ht_dict_dir+f, index_col=0, header=0)
+# ht_strain_dict = {}
+# for f in os.listdir(results_df+ht_dict_dir):
+#     ht_strain_dict[f] = pd.read_csv(results_df+ht_dict_dir+f, index_col=0, header=0)
 d2_frac_df = pd.read_csv(results_df+'d2_frac_per_chrom', index_col=0, header=0)
 muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], header=0)
 
-muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df)
+# muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df)
 
-# mut_frac, ht_ratio = visualize.mutation_spectrum_heatmap(filtered_df)
+# mut_frac, ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df)
+chrom_spect_dict = per_chrom.per_chrom_mut_spectrum(filtered_df)
+per_chrom.plot(chrom_spect_dict)
