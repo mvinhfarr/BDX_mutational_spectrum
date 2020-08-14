@@ -61,9 +61,9 @@ def mutation_spectrum_barcharts_simple(muts_strains, show=True, save=False, resu
     fig.tight_layout(pad=2.0)
 
     if save:
-        fig.savefig(results_dir + 'mutation_spectrum_distr.pdf')
+        plt.savefig(results_dir + 'mutation_spectrum_distr.pdf')
     if show:
-        fig.show()
+        plt.show()
 
     snv_df = pd.concat([snv_tots, snv_frac], axis=1, keys=['counts', 'fracs'])
     bl_df = pd.concat([bl_snv_tots, bl_snv_frac], axis=1, keys=['counts', 'fracs'])
@@ -130,14 +130,14 @@ def mutation_spectrum_barcharts(mutation_strain_df, show=True, save=False, resul
     fig.tight_layout()
 
     if save:
-        fig.savefig(results_dir + 'mutation_spectrum_summary.pdf')
+        plt.savefig(results_dir + 'mutation_spectrum_summary.pdf')
     if show:
-        fig.show()
+        plt.show()
 
     return mutation_fraction_df, snv_strain_avg_frac, haplo_snv_avg, snv_frac, per_ht_snv_fracs
 
 
-def strain_distrb(muts, epochs, gens, show=True, save=False):
+def strain_distrb(muts, epochs, gens, show=True, save=False, results_dir=None):
     muts_per_strain = muts.sum(axis=0)
     # strain_counts.sort_index(inplace=True)
 
@@ -186,22 +186,23 @@ def strain_distrb(muts, epochs, gens, show=True, save=False):
     fig.tight_layout()
 
     if save:
-        fig.savefig('out/strain_distrb.pdf')
+        plt.savefig(results_dir+'strain_distrb.pdf')
     if show:
-        fig.show()
+        plt.show()
 
     print(muts_per_strain)
     print(muts_per_strain_per_gen)
     return muts_per_strain, muts_per_strain_per_gen
 
 
-def other_bar_charts(mutation_strain_df):
+def other_bar_charts(mutation_strain_df, show=True):
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
 
     temp = mutation_strain_df.sum(axis=1)
     temp.unstack([1, 2]).plot(kind='bar', ax=ax3, stacked=True)
 
-    plt.show()
+    if show:
+        plt.show()
 
 
 # needs df with epoch
@@ -240,7 +241,7 @@ def epoch_bar_charts(mutation_strain_df):
     plt.show()
 
 
-def mutation_rate(chroms, epochs, gens, show=True, save=False):
+def mutation_rate(chroms, epochs, gens, show=True, save=False, results_dir=None):
     # get rid of chr11 which has no data
     chroms.dropna(axis=0, inplace=True)
 
@@ -291,6 +292,8 @@ def mutation_rate(chroms, epochs, gens, show=True, save=False):
 
     plt.tight_layout()
 
+    if save:
+        plt.savefig(results_dir+'mutation_rate.pdf')
     if show:
         plt.show()
 
@@ -298,7 +301,7 @@ def mutation_rate(chroms, epochs, gens, show=True, save=False):
 
 
 # df -> index=3mers/haplotype, cols=strains
-def mutation_spectrum_heatmap(df, per_chrom=False):
+def mutation_spectrum_heatmap(df, per_chrom=False, show=True, save=False, results_dir=None):
     # collapse strains
     df = df.sum(axis=1).unstack(level='ht')
     # sum of all mutations by haplotype
@@ -311,24 +314,24 @@ def mutation_spectrum_heatmap(df, per_chrom=False):
 
     ratio_props = mut_frac['BL'] / mut_frac['DBA']
 
+    if per_chrom:
+        return mut_frac, ratio_props
+
     fig, ax = plt.subplots()
 
-    heat_ax = sb.heatmap(ratio_props.unstack(level=2), cmap='bwr', cbar=True, square=True,
+    sb.heatmap(ratio_props.unstack(level=2), ax=ax, cmap='bwr', cbar=True, square=True,
                vmin=0.85, vmax=1.15, xticklabels=True, yticklabels=True)
-    heat_ax.hlines(range(4, 96, 4), *heat_ax.get_xlim())
+    ax.hlines(range(4, 96, 4), *ax.get_xlim())
 
-    heat_ax.set_title('Ratio of proportions of SNVs for between BL6: DBA')
-    heat_ax.set_xticklabels(heat_ax.get_xticklabels(), rotation=0)
+    ax.set_title('Ratio of SNV Proportions between BL6 & D2')
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
     # ax1.set_ylabel('3\'')
-
-    if per_chrom:
-        return heat_ax
-    else:
-        ax = heat_ax
 
     plt.tight_layout()
 
-    # plt.savefig('out/ratio_props_heatmap.pdf')
-    plt.show()
+    if save:
+        plt.savefig(results_dir+'ht_ratio_heatmap.pdf')
+    if show:
+        plt.show()
 
-    return mut_frac, ratio_props
+    return ratio_props

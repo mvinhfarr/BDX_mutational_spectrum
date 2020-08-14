@@ -1,10 +1,12 @@
+import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sb
 
 import preprocess
 import visualize
 
 
-def per_chrom_mut_spectrum(df, plot=True):
+def per_chrom_mut_spectrum(df):
     per_chrom_muts = {}
 
     chroms = df.chrom.unique()
@@ -18,15 +20,59 @@ def per_chrom_mut_spectrum(df, plot=True):
     return per_chrom_muts
 
 
-def plot(per_chrom_muts_dict):
-    fig, ax = plt.subplots(1, len(per_chrom_muts_dict))
+def plot(per_chrom_muts_dict, show=True, save=False, save_dir=None):
+    # fig, ax = plt.subplots(3, 7)
+    fig, (ax1, ax2) = plt.subplots(1, 2)
 
-    n = 0
+    chrom_mut_fracs = {}
+    chrom_ht_ratios = {}
+
+    # i = 0
+    # j = 0
     for chr, df in per_chrom_muts_dict.items():
         if chr == 'chr12': continue
-        ax[n] = visualize.mutation_spectrum_heatmap(df, per_chrom=True)
-        n += 1
+        mut_frac, ht_ratio = visualize.mutation_spectrum_heatmap(df, per_chrom=True)
+
+        # sb.heatmap(ht_ratio.unstack(level=2), ax=ax[i, j], cmap='bwr', cbar=True, square=True,
+        #            center=1, xticklabels=True, yticklabels=True)
+        # ax[i, j].hlines(range(4, 96, 4), *ax[i, j].get_xlim())
+        # ax[i, j].set_title(chr)
+        # ax[i, j].set_xticklabels(ax[i, j].get_xticklabels(), rotation=0)
+        #
+        chrom_mut_fracs[chr] = mut_frac
+        chrom_ht_ratios[chr] = ht_ratio
+        #
+        # j += 1
+        # if j == len(ax[i]):
+        #     j = 0
+        #     i += 1
+
+    ht_ratio_df = pd.concat(chrom_ht_ratios, axis=1)
+    ht_ratio_df.sort_index(axis=1, level=0, inplace=True)
+
+    sb.heatmap(ht_ratio_df.unstack(level=-1), ax=ax1, cmap='bwr', cbar=True, square=True,
+               vmin=0.5, vmax=1.5, xticklabels=True, yticklabels=True)
+
+    ax1.hlines(range(4, 96, 4), *ax1.get_xlim())
+    ax1.vlines(range(4, 96, 4), *ax1.get_ylim())
+    ax1.set_title('Ratio of per Chrom SNV Proportions between BL6 & D2')
+
+    chrom_mut_fracs_df = pd.concat(chrom_mut_fracs, axis=1)
+    chrom_mut_fracs_df = chrom_mut_fracs_df.sum(axis=0, level=0)
+    chrom_snv_ratio = chrom_mut_fracs_df.xs('BL', axis=1, level='ht') / chrom_mut_fracs_df.xs('DBA', axis=1, level='ht')
+    chrom_snv_ratio.sort_index(axis=1, inplace=True)
+
+    sb.heatmap(chrom_snv_ratio, ax=ax2, cmap='bwr', cbar=True, square=True,
+               vmin=0.5, vmax=1.5, xticklabels=True, yticklabels=True)
+
+    # ax2.hlines(range(4, 96, 4), *ax2.get_xlim())
+    ax2.set_title('Ratio of per Chrom SNV Proportions between BL6 & D2')
 
     plt.tight_layout()
-    plt.show()
 
+    if save:
+        plt.savefig(save_dir+'per_chrom_ht_ratio_heatmap.pdf')
+    if show:
+        plt.show()
+
+    return ht_ratio_df, chrom_snv_ratio
