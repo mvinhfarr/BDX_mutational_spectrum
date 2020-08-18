@@ -41,7 +41,7 @@ epoch_df = pd.read_csv(results_df + 'epochs', index_col=0, header=0)
 
 # snv_df -> count and fraction of total for each the 6 snv types
 # bl_df/dba_df -> count and fract of per haplotype total
-snv_df, bl_df, dba_df = visualize.mutation_spectrum_barcharts_simple(mut_strain_df, show=False, save=True,
+snv_df, bl_df, dba_df = visualize.mutation_spectrum_barcharts_simple(mut_strain_df, show=False, save=False,
                                                                      results_dir=results_figs)
 
 # snv_frac_per_strain -> divide mut_strain_df by per strain totals
@@ -50,10 +50,10 @@ snv_df, bl_df, dba_df = visualize.mutation_spectrum_barcharts_simple(mut_strain_
 # snv_tot_frac -> collapse counts across strains (same as snv_df)
 # ht_snv_tot_frac -> collapse counts across strains but divide by ht (same as bl_df/dba_df)
 snv_frac_per_strain, snv_frac_strain_avg, ht_snv_frac_strain_avg, snv_tot_frac, ht_snv_tot_frac = \
-    visualize.mutation_spectrum_barcharts(mut_strain_df, show=False, save=True, results_dir=results_figs)
+    visualize.mutation_spectrum_barcharts(mut_strain_df, show=False, save=False, results_dir=results_figs)
 
 muts_per_strain, muts_per_strain_per_gen = visualize.strain_distrb(mut_strain_df, epoch_df, gens_df,
-                                                                   show=False, save=True, results_dir=results_figs)
+                                                                   show=False, save=False, results_dir=results_figs)
 
 visualize.other_bar_charts(mut_strain_df, show=False)
 
@@ -75,9 +75,9 @@ d2_frac_df = pd.read_csv(results_df+'d2_frac_per_chrom', index_col=0, header=0)
 muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], header=0)
 
 muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df,
-                                                 show=False, save=True, results_dir=results_figs)
+                                                 show=False, save=False, results_dir=results_figs)
 
-ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df, show=False, save=True, results_dir=results_figs)
+ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df, show=False, save=False, results_dir=results_figs)
 
 chrom_spect_dict = per_chrom.per_chrom_mut_spectrum(filtered_df)
-chrom_ratios, chrom_snv_ratios = per_chrom.plot(chrom_spect_dict)
+chrom_ratios, chrom_snv_ratios = per_chrom.plot(chrom_spect_dict, show=True, save=False, save_dir=results_figs)
