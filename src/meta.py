@@ -47,7 +47,7 @@ def gen_at_seq(df):
     print('strains with bad generation data')
     print(gen.loc[gen.isnull()])
 
-    return gen
+    return gen.to_frame()
 
 
 def get_epoch(df):
@@ -56,4 +56,4 @@ def get_epoch(df):
     # only one strain with epoch 1.5
     epoch.replace(to_replace=1.5, value=1.0, inplace=True)
 
-    return epoch
+    return epoch.to_frame()

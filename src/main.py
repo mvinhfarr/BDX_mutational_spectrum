@@ -2,17 +2,20 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
+from scipy import stats
 
 import preprocess
 import visualize
 import meta
 import haplotypes
 import per_chrom
+import mutspec_stats
 
 snv_data_dir = 'data/per_chr_singleton'
 snv_data_file = 'data/bxd_singletons_reformatted.csv'
 meta_data_file = 'data/strain_summary.csv'
 ht_data_dir = 'data/hmm_haplotypes'
+ht_dict_dir = 'ht_dict/'
 
 results_df = 'out/dfs/'
 results_figs = 'out/figs/'
@@ -39,6 +42,7 @@ meta_df = pd.read_csv(results_df + 'meta_data', index_col=0, header=0)
 gens_df = pd.read_csv(results_df + 'gen_at_seq', index_col=0, header=0)
 epoch_df = pd.read_csv(results_df + 'epochs', index_col=0, header=0)
 
+'''
 # snv_df -> count and fraction of total for each the 6 snv types
 # bl_df/dba_df -> count and fract of per haplotype total
 snv_df, bl_df, dba_df = visualize.mutation_spectrum_barcharts_simple(mut_strain_df, show=False, save=False,
@@ -61,8 +65,8 @@ visualize.other_bar_charts(mut_strain_df, show=False)
 # visualize.epoch_bar_charts(mut_strain_df)
 
 # ht_dict, d2_frac_df, muts_per_chrom = haplotypes.main(ht_data_dir, filtered_df)
+'''
 
-ht_dict_dir = 'ht_dict/'
 # for key, df in ht_dict.items():
 #     df.to_csv(results_df + ht_dict_dir + key)
 # d2_frac_df.to_csv(results_df + 'd2_frac_per_chrom')
@@ -71,13 +75,17 @@ ht_dict_dir = 'ht_dict/'
 # ht_strain_dict = {}
 # for f in os.listdir(results_df+ht_dict_dir):
 #     ht_strain_dict[f] = pd.read_csv(results_df+ht_dict_dir+f, index_col=0, header=0)
-d2_frac_df = pd.read_csv(results_df+'d2_frac_per_chrom', index_col=0, header=0)
-muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], header=0)
+# d2_frac_df = pd.read_csv(results_df+'d2_frac_per_chrom', index_col=0, header=0)
+# muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], header=0)
+#
+# muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df,
+#                                                  show=False, save=True, results_dir=results_figs)
 
-muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df,
-                                                 show=False, save=False, results_dir=results_figs)
+p_vals = mutspec_stats.mut_spec_chi_sq(mut_strain_df)
+mut_fracs, ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df, show=True, save=False,
+                                                          results_dir=results_figs, vrange=0.5)
 
-ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df, show=False, save=False, results_dir=results_figs)
 
-chrom_spect_dict = per_chrom.per_chrom_mut_spectrum(filtered_df)
-chrom_ratios, chrom_snv_ratios = per_chrom.plot(chrom_spect_dict, show=True, save=False, save_dir=results_figs)
+
+# chrom_spect_dict = per_chrom.per_chrom_mut_spectrum(filtered_df)
+# chrom_ratios, chrom_snv_ratios = per_chrom.plot(chrom_spect_dict, show=True, save=True, save_dir=results_figs)

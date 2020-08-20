@@ -22,30 +22,17 @@ def per_chrom_mut_spectrum(df):
 
 def plot(per_chrom_muts_dict, show=True, save=False, save_dir=None):
     # fig, ax = plt.subplots(3, 7)
-    fig, (ax1, ax2) = plt.subplots(1, 2)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
 
     chrom_mut_fracs = {}
     chrom_ht_ratios = {}
 
-    # i = 0
-    # j = 0
     for chr, df in per_chrom_muts_dict.items():
         if chr == 'chr12': continue
         mut_frac, ht_ratio = visualize.mutation_spectrum_heatmap(df, per_chrom=True)
 
-        # sb.heatmap(ht_ratio.unstack(level=2), ax=ax[i, j], cmap='bwr', cbar=True, square=True,
-        #            center=1, xticklabels=True, yticklabels=True)
-        # ax[i, j].hlines(range(4, 96, 4), *ax[i, j].get_xlim())
-        # ax[i, j].set_title(chr)
-        # ax[i, j].set_xticklabels(ax[i, j].get_xticklabels(), rotation=0)
-        #
         chrom_mut_fracs[chr] = mut_frac
         chrom_ht_ratios[chr] = ht_ratio
-        #
-        # j += 1
-        # if j == len(ax[i]):
-        #     j = 0
-        #     i += 1
 
     ht_ratio_df = pd.concat(chrom_ht_ratios, axis=1)
     ht_ratio_df.sort_index(axis=1, level=0, inplace=True)

@@ -183,7 +183,7 @@ def strain_distrb(muts, epochs, gens, show=True, save=False, results_dir=None):
     ax4.set_title('Distribution of # SNVs per Strain per Generation')
     # ax4.legend(title='epoch')
 
-    fig.tight_layout()
+    plt.tight_layout()
 
     if save:
         plt.savefig(results_dir+'strain_distrb.pdf')
@@ -247,7 +247,7 @@ def mutation_rate(chroms, epochs, gens, show=True, save=False, results_dir=None)
 
     # gens.index = gens.index.map(filtered_df.loc[gens.index, 'bxd_strain'].drop_duplicates())
     # epochs.index = epochs.index.map(filtered_df.loc[epochs.index, 'bxd_strain'].drop_duplicates())
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2)
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2, figsize=(17, 15))
 
     muts_per_chrom_per_gen_per_ht = chroms / gens.gen
     muts_per_chrom_per_gen_per_ht = muts_per_chrom_per_gen_per_ht.stack()
@@ -301,7 +301,7 @@ def mutation_rate(chroms, epochs, gens, show=True, save=False, results_dir=None)
 
 
 # df -> index=3mers/haplotype, cols=strains
-def mutation_spectrum_heatmap(df, per_chrom=False, show=True, save=False, results_dir=None):
+def mutation_spectrum_heatmap(df, per_chrom=False, show=True, save=False, results_dir=None, vrange=0.15):
     # collapse strains
     df = df.sum(axis=1).unstack(level='ht')
     # sum of all mutations by haplotype
@@ -320,7 +320,7 @@ def mutation_spectrum_heatmap(df, per_chrom=False, show=True, save=False, result
     fig, ax = plt.subplots()
 
     sb.heatmap(ratio_props.unstack(level=2), ax=ax, cmap='bwr', cbar=True, square=True,
-               vmin=0.85, vmax=1.15, xticklabels=True, yticklabels=True)
+               vmin=1-vrange, vmax=1+vrange, xticklabels=True, yticklabels=True)
     ax.hlines(range(4, 96, 4), *ax.get_xlim())
 
     ax.set_title('Ratio of SNV Proportions between BL6 & D2')
@@ -334,4 +334,4 @@ def mutation_spectrum_heatmap(df, per_chrom=False, show=True, save=False, result
     if show:
         plt.show()
 
-    return ratio_props
+    return mut_frac, ratio_props
