@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
@@ -63,9 +64,9 @@ visualize.other_bar_charts(mut_strain_df, show=False)
 
 # NOT WORKING
 # visualize.epoch_bar_charts(mut_strain_df)
-
-# ht_dict, d2_frac_df, muts_per_chrom = haplotypes.main(ht_data_dir, filtered_df)
 '''
+# ht_dict, d2_frac_df, muts_per_chrom = haplotypes.main(ht_data_dir, filtered_df)
+
 
 # for key, df in ht_dict.items():
 #     df.to_csv(results_df + ht_dict_dir + key)
@@ -77,15 +78,13 @@ visualize.other_bar_charts(mut_strain_df, show=False)
 #     ht_strain_dict[f] = pd.read_csv(results_df+ht_dict_dir+f, index_col=0, header=0)
 # d2_frac_df = pd.read_csv(results_df+'d2_frac_per_chrom', index_col=0, header=0)
 # muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], header=0)
-#
+
 # muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df,
 #                                                  show=False, save=True, results_dir=results_figs)
 
 p_vals = mutspec_stats.mut_spec_chi_sq(mut_strain_df)
 mut_fracs, ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df, show=True, save=False,
                                                           results_dir=results_figs, vrange=0.5)
-
-
 
 # chrom_spect_dict = per_chrom.per_chrom_mut_spectrum(filtered_df)
 # chrom_ratios, chrom_snv_ratios = per_chrom.plot(chrom_spect_dict, show=True, save=True, save_dir=results_figs)
