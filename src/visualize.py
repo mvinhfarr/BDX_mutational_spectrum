@@ -190,8 +190,6 @@ def strain_distrb(muts, epochs, gens, show=True, save=False, results_dir=None):
     if show:
         plt.show()
 
-    print(muts_per_strain)
-    print(muts_per_strain_per_gen)
     return muts_per_strain, muts_per_strain_per_gen
 
 

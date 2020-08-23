@@ -12,7 +12,7 @@ import haplotypes
 import per_chrom
 import mutspec_stats
 
-snv_data_dir = 'data/per_chr_singleton'
+# snv_data_dir = 'data/per_chr_singleton/'
 snv_data_file = 'data/bxd_singletons_reformatted.csv'
 meta_data_file = 'data/strain_summary.csv'
 ht_data_dir = 'data/hmm_haplotypes'
