@@ -22,7 +22,7 @@ def per_chrom_mut_spectrum(df):
 
 def plot(per_chrom_muts_dict, show=True, save=False, save_dir=None):
     # fig, ax = plt.subplots(3, 7)
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20,   10))
 
     chrom_mut_fracs = {}
     chrom_ht_ratios = {}

@@ -63,48 +63,83 @@ def mutations_per_chrom_per_strain(ht_df, filtered_df):
     return muts_per_chrom.stack(level=1)
 
 
-def chrom_mut_distrb(ht_dict, filtered_df, num_win=10):
+def chrom_ht_windows(ht_dict, filtered_df, win_size=15e6, num_win=None):
     summary_strain = ht_dict['B6_0333_no_gap']
-    summary_strain.set_index('chrom')
+    summary_strain.set_index('chrom', inplace=True)
 
     # list of chromosomes
-    chroms = summary_strain.chrom.unique()
+    chroms = summary_strain.index
     # list of strains with data
     strains = filtered_df.bxd_strain.unique()
 
-    #
+    # # testing
+    # chroms = ['chr1']
+    # strains = ['BXD001_TyJ_0361']
+
     chr_windows = {}
 
-    for chr in chroms:
-        win_size = math.ceil(summary_strain.loc[chr].num_bp / num_win)
-        chr_start = summary_strain.loc[chr].start
-        chr_end = summary_strain.loc[chr].end
+    for chrm in chroms:
+        chr_start = summary_strain.loc[chrm].start
+        chr_end = summary_strain.loc[chrm].end
 
-        chr_win_df = pd.DataFrame(index=range(num_win), columns=['start', 'end', 'b6_bp', 'd2_bp', 'crossovers'])
-        chr_win_df.start = range(chr_start, chr_end, win_size)
+        chr_win_df = pd.DataFrame(columns=['start', 'end', 'step', 'b6_bp', 'd2_bp', 'crossovers'])
+
+        if num_win is not None:
+            win_arr, win_size = np.linspace(chr_start, chr_end+1, num_win+1, endpoint=True, dtype=int, retstep=True)
+        else:
+            win_arr = np.arange(chr_start, chr_end, win_size, dtype=int)
+            win_arr = np.append(win_arr, chr_end+1)
+
+        chr_win_df.start = win_arr[:-1]
+        chr_win_df.end = win_arr[1:] - 1
+        chr_win_df.step = chr_win_df.end - chr_win_df.start
+        chr_win_df.b6_bp = 0
+        chr_win_df.d2_bp = 0
+        chr_win_df.crossovers = 0
 
         for key, df in ht_dict.items():
             if key in strains:
-                df = df[df.chrom == chr]
-                for index, row in df.itterrows():
-                    window_cross_occurs_in = (row.end - chr_start) // win_size
+                df = df[df.chrom == chrm]
+                for index, row in df.iterrows():
+                    # window with row.start
+                    start_win = chr_win_df[(row.start >= chr_win_df.start) & (row.start <= chr_win_df.end)].index.values[0]
+                    # win with row.end
+                    end_win = chr_win_df[(row.end >= chr_win_df.start) & (row.end <= chr_win_df.end)].index.values[0]
 
-        '''
-        
-        for i in range(num_win):
-            win_start = chr_start + (i * win_size)
-            win_end = win_start + win_size
+                    row_ht = 'b6_bp' if row.ht == 0 else 'd2_bp'
 
-            # number of B6 base pairs
-            bl_bp = 0
-            # number of D2 base pairs
-            dba_bp = 0
+                    if start_win == end_win:
+                        chr_win_df.loc[start_win, row_ht] += row.num_bp
+                    elif start_win == end_win-1:
+                        chr_win_df.loc[start_win, row_ht] += chr_win_df.loc[start_win, 'end'] - row.start
+                        chr_win_df.loc[end_win, row_ht] += row.end - chr_win_df.loc[end_win, 'start']
+                    else:
+                        mid_wins = list(range(start_win + 1, end_win))
+                        chr_win_df.loc[start_win, row_ht] += chr_win_df.loc[start_win, 'end'] - row.start
+                        chr_win_df.loc[end_win, row_ht] += row.end - chr_win_df.loc[end_win, 'start']
+                        chr_win_df.loc[mid_wins, row_ht] += chr_win_df.loc[mid_wins, 'step']
 
-            for key, df in ht_dict.items():
-                if key in strains:
-                    df = df[df.chrom == chr]
-                    for index, row in df.itterrows():
-                        '''
+                    if row.end != chr_win_df.iloc[-1].end:
+                        chr_win_df.loc[end_win, 'crossovers'] += 1
+
+        chr_windows[chrm] = chr_win_df
+
+    df = pd.concat(chr_windows, axis=0)
+    df.index.set_names(['chrom', 'window'], inplace=True)
+    df.reset_index(inplace=True)
+    return df
+
+
+def chrom_win_muts(df, filtered_muts):
+    df['b6_muts'] = 0
+    df['d2_muts'] = 0
+
+    for mut in filtered_muts.itertuples():
+        window = df[(mut.chrom == df.chrom) & (mut.start >= df.start) & (mut.end <= df.end)].index
+        ht = 'b6_muts' if mut.haplotype == 0 else 'd2_muts'
+        df.loc[window, ht] += 1
+
+    return df
 
 
 def main(ht_dir, filtered_df):
@@ -113,6 +148,6 @@ def main(ht_dir, filtered_df):
 
     muts_per_chrom = mutations_per_chrom_per_strain(d2_frac_df, filtered_df)
 
+    # chr_windows = chrom_ht_windows(ht_dict, filtered_df)
+
     return ht_dict, d2_frac_df, muts_per_chrom
-    # print(ht_dict)
-    # print(d2_frac_df)
