@@ -10,7 +10,7 @@ import visualize
 import meta
 import haplotypes
 import per_chrom
-import mutspec_stats
+import stat_tests
 
 # snv_data_dir = 'data/per_chr_singleton/'
 snv_data_file = 'data/bxd_singletons_reformatted.csv'
