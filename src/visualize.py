@@ -333,3 +333,28 @@ def mutation_spectrum_heatmap(df, per_chrom=False, show=True, save=False, result
         plt.show()
 
     return mut_frac, ratio_props
+
+
+def ab_scores(ab_p_vals, filtered_df):
+    fig, ax = plt.subplots(3, 3)
+    ax[0][0].hist(filtered_df.ab)
+    ax[1][0].hist(ab_p_vals.binom_p)
+    ax[1][1].hist(ab_p_vals.ztest_p)
+    ax[0][2].hist(filtered_df.dp, range=(0, 30))
+    ax[1][2].boxplot(filtered_df.dp)
+    ax[0][1].hist(filtered_df.dp, bins=50, range=(0, 100))
+    ax[2][0].hist(ab_p_vals.binom_p, bins=50)
+    ax[2][0].hist(ab_p_vals.ztest_p, bins=50, alpha=0.5)
+    ax[2][1].hist(ab_p_vals.binom_p, bins=25)
+    ax[2][2].hist(ab_p_vals[ab_p_vals.binom_p <= 0.05].binom_p, bins=20, alpha=0.50, range=(0, 1))
+    ax[2][2].hist(ab_p_vals[ab_p_vals.binom_p >= 0.05].binom_p, bins=20, alpha=0.50)
+
+    fig, ax = plt.subplots()
+    ax.scatter(x=(ab_p_vals.x / ab_p_vals.n), y=(ab_p_vals.binom_p))
+
+    fig, ax = plt.subplots(2, 2)
+    ax[0][0].scatter(ab_p_vals.n, ab_p_vals.x / ab_p_vals.n)
+    ax[0][1].scatter(ab_p_vals.n, ab_p_vals.binom_p)
+
+    plt.tight_layout()
+    plt.show()

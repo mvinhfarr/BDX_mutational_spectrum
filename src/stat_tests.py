@@ -28,15 +28,15 @@ def ztest(x, n, p=0.5):
 
 
 # het filtered
-def ab_binomial_test(df):
+def ab_binomial_test(df, p_ab=0.5):
     ab_scores = df.ab
     reads = df.dp
     successes = reads * ab_scores
 
     p_vals = []
     for strain, x, n in zip(df.index, successes, reads):
-        binom_p = stats.binom_test(x, n, p=0.5)
-        ztest_p = ztest(x, n)
+        binom_p = stats.binom_test(x, n, p=p_ab)
+        ztest_p = ztest(x, n, p=p_ab)
         p_vals.append([strain, x, n, binom_p, ztest_p])
 
     p_vals = pd.DataFrame(p_vals, columns=['strain', 'x', 'n', 'binom_p', 'ztest_p'])

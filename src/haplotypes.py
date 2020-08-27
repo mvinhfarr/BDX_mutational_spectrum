@@ -130,16 +130,24 @@ def chrom_ht_windows(ht_dict, filtered_df, win_size=15e6, num_win=None):
     return df
 
 
-def chrom_win_muts(df, filtered_muts):
+def chrom_win_muts(filtered_muts, df):
+    filtered_muts.reset_index(inplace=True)
+    filtered_muts['window'] = -1
+
     df['b6_muts'] = 0
     df['d2_muts'] = 0
 
-    for mut in filtered_muts.itertuples():
-        window = df[(mut.chrom == df.chrom) & (mut.start >= df.start) & (mut.end <= df.end)].index
+    for index, mut in filtered_muts.iterrows():
+        window = df[(mut.chrom == df.chrom) & (mut.start >= df.start) & (mut.end <= df.end)]
         ht = 'b6_muts' if mut.haplotype == 0 else 'd2_muts'
-        df.loc[window, ht] += 1
 
-    return df
+        filtered_muts.loc[index, 'window'] = window.window.values[0]
+        df.loc[window.index, ht] += 1
+
+    df['b6_muts_per_bp'] = df.b6_muts / df.b6_bp
+    df['d2_muts_per_bp'] = df.d2_muts / df.d2_bp
+
+    return filtered_muts, df
 
 
 def main(ht_dir, filtered_df):
