@@ -61,32 +61,37 @@ other_ab_scores = ab_scores.loc[others.index]
 
 ab_p_vals = stat_tests.ab_binomial_test(filtered_df)
 
-fig, ax = plt.subplots(3,3)
-ax[0][0].hist(ab_scores)
-ax[1][0].hist(ab_p_vals.binom_p)
-ax[1][1].hist(ab_p_vals.ztest_p)
-ax[0][2].hist(filtered_df.dp, range=(0, 30))
-ax[1][2].boxplot(filtered_df.dp)
-ax[0][1].hist(filtered_df.dp, bins=50, range=(0,100))
-ax[2][0].hist(ab_p_vals.binom_p, bins=50)
-ax[2][0].hist(ab_p_vals.ztest_p, bins=50, alpha=0.5)
-ax[2][1].hist(ab_p_vals.binom_p, bins=25)
-ax[2][2].hist(ab_p_vals[ab_p_vals.binom_p <= 0.05].binom_p, bins=20, alpha=0.50, range=(0, 1))
-ax[2][2].hist(ab_p_vals[ab_p_vals.binom_p >= 0.05].binom_p, bins=20, alpha=0.50)
+# shaky = ab_p_vals[(ab_p_vals.binom_p >= 0.05) & (ab_p_vals.binom_p <= 0.4)]
+#
+# temp_ab = ab_p_vals.set_index('strain')
+# df1 = temp_ab.loc[notable.index]
+# df2 = temp_ab.loc[others.index]
 
-shaky = ab_p_vals[(ab_p_vals.binom_p >= 0.05) & (ab_p_vals.binom_p <= 0.4)]
+# visualize.ab_scores(ab_p_vals, filtered_df)
+
+# ax[1][0].scatter(df1.n, df1.x/df1.n, alpha=0.5)
+# ax[1][0].scatter(df2.n, df2.x/df2.n, alpha=0.5)
+# ax[1][1].scatter(df2.x/df2.n, df2.binom_p, alpha=0.5)
+# ax[1][1].scatter(df1.x/df1.n, df1.binom_p, alpha=0.5)
+
+phastcons = filtered_df.phastCons.copy(deep=True)
+phastcons = pd.to_numeric(phastcons, errors='coerce')
+phastcons.dropna(inplace=True)
+
+hist, bins = np.histogram(phastcons, bins=20, density=True)
+values = np.cumsum((0.05 * hist))
+
+homo_phastcons = pd.read_csv(main_dir+'filtered_singletons', index_col=0)
+homo_phastcons = homo_phastcons.phastCons.copy(deep=True)
+homo_phastcons = pd.to_numeric(homo_phastcons, errors='coerce')
+homo_phastcons.dropna(inplace=True)
+
+hist2, bins2 = np.histogram(homo_phastcons, bins=20, density=True)
+values2 = np.cumsum(0.05*hist2)
+
 fig, ax = plt.subplots()
-ax.scatter(x=(ab_p_vals.x/ab_p_vals.n), y=(ab_p_vals.binom_p))
 
-fig, ax = plt.subplots(2, 2)
-ax[0][0].scatter(ab_p_vals.n, ab_p_vals.x/ab_p_vals.n)
-ax[0][1].scatter(ab_p_vals.n, ab_p_vals.binom_p)
-
-temp_ab = ab_p_vals.set_index('strain')
-df1 = temp_ab.loc[notable.index]
-df2 = temp_ab.loc[others.index]
-
-ax[1][0].scatter(df1.n, df1.x/df1.n, alpha=0.5)
-ax[1][0].scatter(df2.n, df2.x/df2.n, alpha=0.5)
-ax[1][1].scatter(df1.x/df1.n, df1.binom_p, alpha=0.5)
-ax[1][1].scatter(df2.x/df2.n, df2.binom_p, alpha=0.5)
+ax.plot(bins[1:], values, 'o-', label='heterozygous')
+ax.plot(bins2[1:], values2, 'o-', label='homozygous')
+ax.set_ylim(0, 1)
+ax.legend()
