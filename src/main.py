@@ -79,10 +79,18 @@ for f in os.listdir(results_df+ht_dict_dir):
 d2_frac_df = pd.read_csv(results_df+'d2_frac_per_chrom', index_col=0, header=0)
 muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], header=0)
 
-# chr_windows = haplotypes.chrom_ht_windows(ht_strain_dict, filtered_df)
-chr_windows = haplotypes.chrom_ht_windows(ht_strain_dict, filtered_df, num_win=10)
+# # chr_windows = haplotypes.chrom_ht_windows(ht_strain_dict, filtered_df)
+# chr_windows = haplotypes.chrom_ht_windows(ht_strain_dict, filtered_df, num_win=10)
+#
+# filtered_df, chr_windows = haplotypes.chrom_win_muts(filtered_df, chr_windows)
+#
+# filtered_df.to_csv(results_df + 'filtered_df')
+# chr_windows.to_csv(results_df + 'chrom_windows')
 
-filtered_df, chr_windows = haplotypes.chrom_win_muts(filtered_df, chr_windows)
+filtered_df = pd.read_csv(results_df + 'filtered_df')
+chr_windows = pd.read_csv(results_df + 'chrom_windows')
+
+chr_windows = stat_tests.chr_windows_chi_sq_test(chr_windows)
 
 chr_windows = chr_windows.set_index(['chrom', 'window'])
 
@@ -101,8 +109,9 @@ sb.heatmap(df1, ax=ax[0][0], cmap='bwr', cbar=True, square=True, vmin=0.5, vmax=
 sb.heatmap(df2, ax=ax[0][1], cmap='bwr', cbar=True, square=True, center=1, xticklabels=True, yticklabels=True)
 sb.heatmap(df3, ax=ax[1][0], cmap='bwr', cbar=True, square=True, vmin=0.5, vmax=1.5, xticklabels=True, yticklabels=True)
 
-ab_p_vals = stat_tests.ab_binomial_test(filtered_df)
-visualize.ab_scores(ab_p_vals, filtered_df)
+# # needs to be redone with expected probability = 1
+# ab_p_vals = stat_tests.ab_binomial_test(filtered_df)
+# visualize.ab_scores(ab_p_vals, filtered_df)
 
 # muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df,
 #                                                  show=False, save=True, results_dir=results_figs)

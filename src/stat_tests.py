@@ -43,3 +43,27 @@ def ab_binomial_test(df, p_ab=0.5):
 
     return p_vals
 
+
+def chr_windows_chi_sq_test(chr_windows):
+    b6_tot_muts = chr_windows.b6_muts.sum()
+    d2_tot_muts = chr_windows.d2_muts.sum()
+    b6_tot_bp = chr_windows.b6_bp.sum()
+    d2_tot_bp = chr_windows.d2_bp.sum()
+
+    chr_windows['chi2_pval'] = np.nan
+
+    for index, row in chr_windows.iterrows():
+        try:
+            obs = np.array([[row.b6_bp / row.b6_muts, (b6_tot_bp - row.b6_bp) / (b6_tot_muts - row.b6_muts)],
+                            [row.d2_bp / row.d2_muts, (d2_tot_bp - row.d2_bp) / (d2_tot_muts - row.d2_muts)]])
+            chi2, p, dof, exp = stats.chi2_contingency(obs, correction=True)
+        except ValueError:
+            print('window {} missing mutations'.format(index))
+            continue
+        except ZeroDivisionError:
+            print('window {} error'.format(index))
+            continue
+        finally:
+            chr_windows.loc[index, 'chi2_pval'] = p
+
+    return chr_windows
