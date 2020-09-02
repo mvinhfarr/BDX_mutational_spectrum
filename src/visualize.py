@@ -190,7 +190,7 @@ def strain_distrb(muts, epochs, gens, show=True, save=False, results_dir=None):
     if show:
         plt.show()
 
-    return muts_per_strain, muts_per_strain_per_gen
+    return muts_per_strain.rename('muts'), muts_per_strain_per_gen.rename('muts_gen')
 
 
 def other_bar_charts(mutation_strain_df, show=True):
