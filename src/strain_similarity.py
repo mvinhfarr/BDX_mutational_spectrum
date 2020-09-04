@@ -97,8 +97,8 @@ if __name__ == '__main__':
 
     for g in groups:
         temp_strains = filtered_df.loc[filtered_df.expanded_strain.isin(epoch_df[epoch_df.epoch == g].index.values)].bxd_strain.unique()
-        df = strain_b6_frac.loc[temp_strains].reset_index()
+        df = strain_b6_frac.get_loc[temp_strains]
 
-        ax.scatter(pc_df.loc[df.index, 'pc1'], pc_df.loc[df.index, 'pc2'])
+        ax.scatter(pc_df.loc[df, 'pc1'], pc_df.loc[df.index, 'pc2'])
 
     ax.legend(groups)
