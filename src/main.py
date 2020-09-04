@@ -29,7 +29,7 @@ results_figs = 'out/figs/'
 # muts_by_strains.to_csv(results_df + 'mutations_by_strains')
 
 raw_df = pd.read_csv(results_df + 'raw_singletons', index_col=0)
-filtered_df = pd.read_csv(results_df + 'filtered_singletons', index_col=0)
+# filtered_df = pd.read_csv(results_df + 'filtered_singletons', index_col=0)
 mut_strain_df = pd.read_csv(results_df + 'mutations_by_strains', index_col=[0, 1, 2, 3], header=0)
 
 # # load meta data; filter; extract generation at sequence and epoch
@@ -87,31 +87,15 @@ muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], head
 # filtered_df.to_csv(results_df + 'filtered_df')
 # chr_windows.to_csv(results_df + 'chrom_windows')
 
-filtered_df = pd.read_csv(results_df + 'filtered_df')
-chr_windows = pd.read_csv(results_df + 'chrom_windows')
+filtered_df = pd.read_csv(results_df + 'filtered_df', index_col=0)
+chr_windows = pd.read_csv(results_df + 'chrom_windows', index_col=0)
 
-chr_windows = stat_tests.chr_windows_chi_sq_test(chr_windows)
+pval_constant_ht_adjust = stat_tests.chr_windows_chi2_constant_ht_adjust(chr_windows)
+pval_elevated_ht_adjust = stat_tests.chr_windows_chi2_elevated_bp_ht_adjust(chr_windows)
+pval_pre_ht_adjust = stat_tests.chr_windows_chi2_pre_win_adjust(chr_windows)
 
-chr_windows = chr_windows.set_index(['chrom', 'window'])
 
-df1 = chr_windows.b6_muts_per_bp / chr_windows.d2_muts_per_bp
-df1 = df1.unstack(level='chrom')
 
-df2 = chr_windows.b6_bp / chr_windows.d2_bp
-df2 = df2.unstack(level='chrom')
-
-df3 = chr_windows.b6_muts / chr_windows.d2_muts
-df3 = df3.unstack(level='chrom')
-
-df4 = chr_windows.d2_bp / chr_windows.b6_bp
-df4 = df4.unstack(level='chrom')
-
-fig, ax = plt.subplots(2, 2)
-
-sb.heatmap(df1, ax=ax[0][0], cmap='bwr', cbar=True, square=True, vmin=0.5, vmax=1.5, xticklabels=True, yticklabels=True)
-sb.heatmap(df2, ax=ax[0][1], cmap='bwr', cbar=True, square=True, center=1, xticklabels=True, yticklabels=True)
-sb.heatmap(df3, ax=ax[1][0], cmap='bwr', cbar=True, square=True, vmin=0.5, vmax=1.5, xticklabels=True, yticklabels=True)
-sb.heatmap(df4, ax=ax[1][1], cmap='bwr', cbar=True, square=True, vmin=0, vmax=2, xticklabels=True, yticklabels=True)
 
 # # needs to be redone with expected probability = 1
 # ab_p_vals = stat_tests.ab_binomial_test(filtered_df)

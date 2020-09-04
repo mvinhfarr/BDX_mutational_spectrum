@@ -358,3 +358,35 @@ def ab_scores(ab_p_vals, filtered_df):
 
     plt.tight_layout()
     plt.show()
+
+
+def chr_window_heatmap(chr_windows, show=True):
+    chr_windows = chr_windows.set_index(['chrom', 'window'])
+
+    df1 = chr_windows.b6_muts_per_bp / chr_windows.d2_muts_per_bp
+    df1 = df1.unstack(level='chrom')
+
+    df2 = chr_windows.b6_bp / chr_windows.d2_bp
+    df2 = df2.unstack(level='chrom')
+
+    df3 = chr_windows.b6_muts / chr_windows.d2_muts
+    df3 = df3.unstack(level='chrom')
+
+    df4 = chr_windows.d2_bp / chr_windows.b6_bp
+    df4 = df4.unstack(level='chrom')
+
+    fig1, ax = plt.subplots(2, 2)
+
+    sb.heatmap(df1, ax=ax[0][0], cmap='bwr', cbar=True, square=True, vmin=0.5, vmax=1.5,
+               xticklabels=True, yticklabels=True)
+    sb.heatmap(df2, ax=ax[0][1], cmap='bwr', cbar=True, square=True, center=1,
+               xticklabels=True, yticklabels=True)
+    sb.heatmap(df3, ax=ax[1][0], cmap='bwr', cbar=True, square=True, vmin=0.5, vmax=1.5,
+               xticklabels=True, yticklabels=True)
+    sb.heatmap(df4, ax=ax[1][1], cmap='bwr', cbar=True, square=True, vmin=0, vmax=2,
+               xticklabels=True, yticklabels=True)
+
+    fig2, ax = plt.subplots()
+
+    sb.heatmap(df1, ax=ax, cmap='bwr', cbar=True, square=True, vmin=0.5, vmax=1.5,
+               xticklabels=True, yticklabels=True, annot=chr_windows.chi2_pval.unstack(level='chrom'))
