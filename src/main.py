@@ -90,9 +90,12 @@ muts_per_chrom = pd.read_csv(results_df+'muts_per_chrom', index_col=[0, 1], head
 filtered_df = pd.read_csv(results_df + 'filtered_df', index_col=0)
 chr_windows = pd.read_csv(results_df + 'chrom_windows', index_col=0)
 
-pval_constant_ht_adjust = stat_tests.chr_windows_chi2_constant_ht_adjust(chr_windows)
+chr_windows = chr_windows[(chr_windows.chrom != 'chrX') & (chr_windows.chrom != 'chrY')]
+
+# pval_constant_ht_adjust = stat_tests.chr_windows_chi2_constant_ht_adjust(chr_windows)
+# pval_elevated_win_ht_adjust = stat_tests.chr_windows_chi2_elevated_win_ht_adjust(chr_windows)
+# pval_pre_ht_adjust = stat_tests.chr_windows_chi2_pre_win_adjust(chr_windows)
 pval_elevated_ht_adjust = stat_tests.chr_windows_chi2_elevated_bp_ht_adjust(chr_windows)
-pval_pre_ht_adjust = stat_tests.chr_windows_chi2_pre_win_adjust(chr_windows)
 
 
 

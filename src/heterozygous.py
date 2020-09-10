@@ -12,6 +12,29 @@ import haplotypes
 import per_chrom
 import stat_tests
 
+
+def mut_distance(muts, strain_index):
+    per_strain_mut_distance = {}
+    per_strain_mut_loc = {}
+
+    for strain in strain_index:
+        strain_df = muts.loc[strain]
+        per_chrom_mut_distance = {}
+        per_chrom_mut_loc = {}
+        for chrom in strain_df.chrom.unique():
+            df = strain_df.loc[strain_df.chrom == chrom]
+            mut_locs = df.start
+            mut_distances = mut_locs[1:] - mut_locs[:-1]
+
+            per_chrom_mut_distance[chrom] = mut_distances.to_numpy(dtype=int)
+            per_chrom_mut_loc[chrom] = mut_locs.to_numpy(dtype=int)
+
+        per_strain_mut_distance[strain] = per_chrom_mut_distance
+        per_strain_mut_loc[strain] = per_chrom_mut_loc
+
+    return per_strain_mut_distance, per_strain_mut_loc
+
+
 # snv_data_file = 'data/bxd_singletons_reformatted.csv'
 meta_data_file = 'data/strain_summary.csv'
 ht_data_dir = 'data/hmm_haplotypes'
@@ -59,7 +82,7 @@ ab_scores = filtered_df.ab
 notable_ab_scores = ab_scores.loc[notable.index]
 other_ab_scores = ab_scores.loc[others.index]
 
-ab_p_vals = stat_tests.ab_binomial_test(filtered_df)
+# ab_p_vals = stat_tests.ab_binomial_test(filtered_df)
 
 # shaky = ab_p_vals[(ab_p_vals.binom_p >= 0.05) & (ab_p_vals.binom_p <= 0.4)]
 #
@@ -74,24 +97,51 @@ ab_p_vals = stat_tests.ab_binomial_test(filtered_df)
 # ax[1][1].scatter(df2.x/df2.n, df2.binom_p, alpha=0.5)
 # ax[1][1].scatter(df1.x/df1.n, df1.binom_p, alpha=0.5)
 
-phastcons = filtered_df.phastCons.copy(deep=True)
-phastcons = pd.to_numeric(phastcons, errors='coerce')
-phastcons.dropna(inplace=True)
+# phastcons = filtered_df.phastCons.copy(deep=True)
+# phastcons = pd.to_numeric(phastcons, errors='coerce')
+# phastcons.dropna(inplace=True)
+#
+# hist, bins = np.histogram(phastcons, bins=20, density=True)
+# values = np.cumsum((0.05 * hist))
+#
+# homo_phastcons = pd.read_csv(main_dir+'filtered_singletons', index_col=0)
+# homo_phastcons = homo_phastcons.phastCons.copy(deep=True)
+# homo_phastcons = pd.to_numeric(homo_phastcons, errors='coerce')
+# homo_phastcons.dropna(inplace=True)
+#
+# hist2, bins2 = np.histogram(homo_phastcons, bins=20, density=True)
+# values2 = np.cumsum(0.05*hist2)
+#
+# fig, ax = plt.subplots()
+#
+# ax.plot(bins[1:], values, 'o-', label='heterozygous')
+# ax.plot(bins2[1:], values2, 'o-', label='homozygous')
+# ax.set_ylim(0, 1)
+# ax.legend()
 
-hist, bins = np.histogram(phastcons, bins=20, density=True)
-values = np.cumsum((0.05 * hist))
+mut_distances, mut_locs = mut_distance(filtered_df, epoch_df.index)
 
-homo_phastcons = pd.read_csv(main_dir+'filtered_singletons', index_col=0)
-homo_phastcons = homo_phastcons.phastCons.copy(deep=True)
-homo_phastcons = pd.to_numeric(homo_phastcons, errors='coerce')
-homo_phastcons.dropna(inplace=True)
-
-hist2, bins2 = np.histogram(homo_phastcons, bins=20, density=True)
-values2 = np.cumsum(0.05*hist2)
 
 fig, ax = plt.subplots()
 
-ax.plot(bins[1:], values, 'o-', label='heterozygous')
-ax.plot(bins2[1:], values2, 'o-', label='homozygous')
-ax.set_ylim(0, 1)
-ax.legend()
+mut_loc_df = pd.DataFrame(mut_locs)
+
+for strain, dict in mut_locs.items():
+    i = 0
+    for chrom, arr in dict.items():
+        ax.scatter(arr, np.full_like(arr, i))
+        i += 1
+
+fig2, ax2 = plt.subplots()
+fig3, ax3 = plt.subplots()
+
+i = 0
+for chrom in filtered_df.chrom.unique():
+    if chrom == 'chr15':
+        j=0
+    df = filtered_df.loc[filtered_df.chrom == chrom]
+    ax2.hist(df.start, bins=10000, range=(0, 2e8), alpha=0.5)
+
+    arr = df.start
+    ax3.scatter(arr, np.full_like(arr, i), label=chrom)
+    i += 1

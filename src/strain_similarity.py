@@ -59,7 +59,6 @@ def per_strain_chrom_windows(filtered_df, ht_dict, chr_windows):
 
 if __name__ == '__main__':
     filtered_df = pd.read_csv(results_df + 'filtered_df', index_col=0)
-    chr_windows = pd.read_csv(results_df + 'chrom_windows', index_col=0)
 
     meta_df = pd.read_csv(results_df + 'meta_data', index_col=0, header=0)
     gens_df = pd.read_csv(results_df + 'gen_at_seq', index_col=0, header=0)
@@ -69,20 +68,26 @@ if __name__ == '__main__':
     for f in os.listdir(results_df + ht_dict_dir):
         ht_dict[f] = pd.read_csv(results_df + ht_dict_dir + f, index_col=0, header=0)
 
+    # chr_windows = pd.read_csv(results_df + 'chrom_windows', index_col=0)
+    chr_windows = haplotypes.chrom_ht_windows(ht_dict, filtered_df, win_size=10e6)
+    filtered_df, chr_windows = haplotypes.chrom_win_muts(filtered_df, chr_windows)
+    print('created chr_windows, size {}'.format(chr_windows.shape()))
     # # for later
     # formatted_col_names = ['{}_{}'.format(c, i) for c, i in zip(chr_windows.chrom, chr_windows.window)]
     # formatted_col_names = [col for col in formatted_col_names if 'chrY' not in col]
 
     strain_chr_win = per_strain_chrom_windows(filtered_df, ht_dict, chr_windows)
     strain_b6_frac = strain_chr_win.xs('b6', level='ht', axis=0) / strain_chr_win.sum(level='strain', axis=0)
+    print('created strain_b6_frac, size {}'.format(strain_b6_frac.shape()))
 
-    x = strain_b6_frac.values
+    # x = strain_b6_frac.loc[:, ].values
+    x = strain_b6_frac.drop(['chrX', 'chrY'], axis=1, level=0)
     x = StandardScaler().fit_transform(x)
 
     pca = PCA(n_components=2)
     principal_components = pca.fit_transform(x)
 
-    pc_df = pd.DataFrame(principal_components, columns=['pc1', 'pc2'])
+    pc_df = pd.DataFrame(principal_components, index=strain_b6_frac.index, columns=['pc1', 'pc2'])
 
     explained_variance = pca.explained_variance_ratio_
 
@@ -90,15 +95,13 @@ if __name__ == '__main__':
 
     fig, ax = plt.subplots()
 
-    plt.xlabel('Principal Component 1 ({}% var. expl.)'.format(explained_variance[0]))
-    plt.ylabel('Principal Component 2({}% var. expl.)'.format(explained_variance[1]))
+    plt.xlabel('Principal Component 1 {} var. expl.'.format(explained_variance[0]))
+    plt.ylabel('Principal Component 2 {} var. expl.'.format(explained_variance[1]))
 
-    groups = epoch_df.epoch.unique()
+    epoch_hue = filtered_df.loc[:, ['bxd_strain', 'epoch']].drop_duplicates()
+    epoch_hue.set_index('bxd_strain', inplace=True)
+    pc_df = pd.concat([pc_df, epoch_hue], axis=1)
 
-    for g in groups:
-        temp_strains = filtered_df.loc[filtered_df.expanded_strain.isin(epoch_df[epoch_df.epoch == g].index.values)].bxd_strain.unique()
-        df = strain_b6_frac.get_loc[temp_strains]
+    sb.scatterplot(x='pc1', y='pc2', hue='epoch', data=pc_df, ax=ax, palette='Set1')
 
-        ax.scatter(pc_df.loc[df, 'pc1'], pc_df.loc[df.index, 'pc2'])
-
-    ax.legend(groups)
+    ax.legend()
