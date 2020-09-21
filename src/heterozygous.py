@@ -63,15 +63,14 @@ meta_df, gens_df, epoch_df = meta.main(meta_data_file, mut_strain_df)
 muts_per_strain, muts_per_strain_per_gen = visualize.strain_distrb(mut_strain_df, epoch_df, gens_df,
                                                                    show=False, save=False, results_dir=het_figs)
 
+# ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df, show=False, save=False, results_dir=het_figs)
+
 # visualize.other_bar_charts(mut_strain_df, show=False)
 
 # ht_dict, d2_frac_df, muts_per_chrom = haplotypes.main(ht_data_dir, filtered_df)
 #
 # muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df,
 #                                                  show=False, save=True, results_dir=het_figs)
-
-# ht_ratio = visualize.mutation_spectrum_heatmap(mut_strain_df, show=False, save=False, results_dir=het_figs)
-
 # chrom_spect_dict = per_chrom.per_chrom_mut_spectrum(filtered_df)
 # chrom_ratios, chrom_snv_ratios = per_chrom.plot(chrom_spect_dict, show=False, save=True, save_dir=het_figs)
 

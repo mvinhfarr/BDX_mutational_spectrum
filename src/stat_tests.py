@@ -36,10 +36,12 @@ def ab_binomial_test(df, p_ab=0.5):
     p_vals = []
     for strain, x, n in zip(df.index, successes, reads):
         binom_p = stats.binom_test(x, n, p=p_ab)
-        ztest_p = ztest(x, n, p=p_ab)
-        p_vals.append([strain, x, n, binom_p, ztest_p])
+        # ztest_p = ztest(x, n, p=p_ab)
+        # p_vals.append([strain, x, n, binom_p, ztest_p])
+        p_vals.append([strain, x, n, binom_p])
 
-    p_vals = pd.DataFrame(p_vals, columns=['strain', 'x', 'n', 'binom_p', 'ztest_p'])
+    # p_vals = pd.DataFrame(p_vals, columns=['strain', 'x', 'n', 'binom_p', 'ztest_p'])
+    p_vals = pd.DataFrame(p_vals, columns=['strain', 'x', 'n', 'binom_p'])
 
     return p_vals
 
@@ -196,3 +198,11 @@ def chr_windows_chi2_elevated_bp_ht_adjust(df):
         chr_windows.loc[index, 'chi2_pval'] = p
 
     return chr_windows
+
+
+def chr_windows_bp_dif_chi2_test(chr_df):
+    pvals = {}
+    for index, row in chr_df.iterrows():
+        b6_bp_win = row.b6_bp
+        d2_bp_win = row.d2_bp
+        tot_b6_bp = chr_df.b6_bp.sum() - b6_bp_win

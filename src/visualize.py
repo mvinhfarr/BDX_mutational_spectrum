@@ -350,7 +350,7 @@ def ab_scores(ab_p_vals, filtered_df):
     ax[2][2].hist(ab_p_vals[ab_p_vals.binom_p >= 0.05].binom_p, bins=20, alpha=0.50)
 
     fig, ax = plt.subplots()
-    ax.scatter(x=(ab_p_vals.x / ab_p_vals.n), y=(ab_p_vals.binom_p))
+    ax.scatter(x=(ab_p_vals.x / ab_p_vals.n), y=ab_p_vals.binom_p)
 
     fig, ax = plt.subplots(2, 2)
     ax[0][0].scatter(ab_p_vals.n, ab_p_vals.x / ab_p_vals.n)

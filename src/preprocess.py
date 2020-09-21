@@ -25,13 +25,15 @@ def load_formatted_csv(f_name):
     return df
 
 
-def filter_raw_data(df, remove_hetero=True):
+def filter_raw_data(df, remove_hetero=True, remove_homo=False):
     # remove indel mutations
     df = df[~df['kmer'].str.contains('indel')]
 
     # remove heterozygous mutations
     if remove_hetero:
         df = df[df['gt'] == 2]
+    if remove_homo:
+        df = df[df['gt'] == 1]
 
     return df
 
