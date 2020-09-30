@@ -30,7 +30,7 @@ def extract_gen(s):
         # some of the strains don't have generation data
         return None
     elif s[0] != 'F':
-        # strains 221-227 have bad data
+        # strains 221-227 are crosses of BXD strains at different generations
         return None
     else:
         # extract any ints from s and sum

@@ -350,16 +350,14 @@ if __name__ == '__main__':
     combined_meta_df, combined_gens_df, combined_epoch_df = meta.main(meta_data_file, combined_mut_strain_df)
     '''
 
-    # mut_strain_df.drop('BXD194/RwwJ', axis=1, inplace=True)
-
     '''HOMO Plots'''
     # mut_rate_df = mutation_rate(mut_strain_df, gens_df, epoch_df)
     # mut_frac, ht_mut_frac = mut_spectrum(mut_strain_df)
-    mut_3mer_frac, ht_mut_ratio, heatmap_p_vals = mut_spec_heatmap(mut_strain_df, vrange=0.25)
+    # mut_3mer_frac, ht_mut_ratio, heatmap_p_vals = mut_spec_heatmap(mut_strain_df, vrange=0.25)
 
     # # x_df, pca_dc, expl_var = mut_spec_pca(mut_strain_df, epoch_df)
 
-    ''' AND FOR HETEROZYGOUS
+    ''' NOT USED IN PRESENTATION
     # muts_per_chrom_per_gen = visualize.mutation_rate(muts_per_chrom, epoch_df, gens_df,
     #                                                  show=False, save=True, results_dir=results_figs)
 
@@ -367,20 +365,23 @@ if __name__ == '__main__':
     # chrom_ratios, chrom_snv_ratios = per_chrom.plot(chrom_spect_dict, show=True, save=True, save_dir=results_figs)
     '''
 
+    ''' ALSO NOT IN PRESENTATION - FOR REFERENCE
     # ab_p_vals = stat_tests.ab_binomial_test(filtered_df)
-    # # ab_dp_distrb(filtered_df, het_filtered_df)
+    # ab_dp_distrb(filtered_df, het_filtered_df)
     # ab_dp_scatter(ab_p_vals)
     # ab_binom_pval_distrb(ab_p_vals)
     # ab_binom_pval_scatter(ab_p_vals)
+    '''
 
-    # ht_strain_dict = {}
-    # for f in os.listdir(results_df + ht_dict_dir):
-    #     ht_strain_dict[f] = pd.read_csv(results_df + ht_dict_dir + f, index_col=0, header=0)
-    # chr_windows = haplotypes.chrom_ht_windows(ht_strain_dict, filtered_df, num_win=10)
-    # filtered_df, chr_windows = haplotypes.chrom_win_muts(filtered_df, chr_windows)
+    '''STRAIN SIMILARITY'''
+    ht_strain_dict = {}
+    for f in os.listdir(results_df + ht_dict_dir):
+        ht_strain_dict[f] = pd.read_csv(results_df + ht_dict_dir + f, index_col=0, header=0)
+    chr_windows = haplotypes.chrom_ht_windows(ht_strain_dict, filtered_df, num_win=10)
+    filtered_df, chr_windows = haplotypes.chrom_win_muts(filtered_df, chr_windows)
 
-    # autosome_chr_windows = chr_windows[(chr_windows.chrom != 'chrX') & (chr_windows.chrom != 'chrY')]
-    # autosome_chr_windows = stat_tests.chr_windows_chi2_elevated_bp_ht_adjust(autosome_chr_windows)
+    autosome_chr_windows = chr_windows[(chr_windows.chrom != 'chrX') & (chr_windows.chrom != 'chrY')]
+    autosome_chr_windows = stat_tests.chr_windows_chi2_elevated_bp_ht_adjust(autosome_chr_windows)
 
     # chr_window_bp_heatmap(chr_windows)
     # chr_window_mut_per_bp_heatmap(autosome_chr_windows)
@@ -403,4 +404,4 @@ if __name__ == '__main__':
     # combined_mut_3mer_frac, combined_ht_mut_ratio, combined_heatmap_p_vals = \
     #     mut_spec_heatmap(combined_mut_strain_df, vrange=0.25)
 
-    plt.show()
+    # plt.show()

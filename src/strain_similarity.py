@@ -71,7 +71,7 @@ if __name__ == '__main__':
     # chr_windows = pd.read_csv(results_df + 'chrom_windows', index_col=0)
     chr_windows = haplotypes.chrom_ht_windows(ht_dict, filtered_df, win_size=10e6)
     # chr_windows = haplotypes.chrom_ht_windows(ht_dict, filtered_df, num_win=10)
-    filtered_df, chr_windows = haplotypes.chrom_win_muts(filtered_df, chr_windows)
+    filtered_df, chr_wndows = haplotypes.chrom_win_muts(filtered_df, chr_windows)
     print('created chr_windows, size {}, {}'.format(chr_windows.shape[0], chr_windows.shape[1]))
     # # for later
     # formatted_col_names = ['{}_{}'.format(c, i) for c, i in zip(chr_windows.chrom, chr_windows.window)]
@@ -110,4 +110,4 @@ if __name__ == '__main__':
     ax.set_ylabel('Principal Component 2    {:.2f}% var. expl.'.format(explained_variance[1] * 100))
     ax.legend()
 
-    plt.savefig('out/figs/presentation/strain_similarity_pca')
+    # plt.savefig('out/figs/presentation/strain_similarity_pca')
